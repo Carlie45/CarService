@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.LoginActivity"
+    android:background="@drawable/img_background"
+    style="@style/MatchParent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="@dimen/login_app_icon_dimens"
+            android:layout_height="@dimen/login_app_icon_dimens"
+            android:layout_margin="30dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_car" />
+
+        <EditText
+            android:id="@+id/editTextLoginEmail"
+            android:inputType="textEmailAddress"
+            android:hint="@string/login_hint_email"
+            android:textColorHint="@color/colorWhite"
+            style="@style/LoginPageText"/>
+
+        <EditText
+            android:id="@+id/editTextLoginPassword"
+            android:inputType="textPassword"
+            android:hint="@string/login_hint_password"
+            android:textColorHint="@color/colorWhite"
+            style="@style/LoginPageText"/>
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:background="@color/colorTeal"
+            android:layout_marginTop="@dimen/normal_margin" />
+
+        <TextView
+            android:id="@+id/textViewLoginNewHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/login_new_here"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/small_text_size" />
+
+    </LinearLayout>
+
+</RelativeLayout>
