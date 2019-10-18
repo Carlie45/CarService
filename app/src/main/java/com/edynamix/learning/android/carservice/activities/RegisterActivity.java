@@ -54,11 +54,9 @@ public class RegisterActivity extends Activity {
                     registerUser(email, password);
 
                     RegisterActivity.this.finish();
-                } catch (IllegalCredentialsException | EmailAlreadyRegisteredException | NotMatchingCredentialsException e) {
+                } catch (IllegalCredentialsException | RegistrationFailedException e) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegisterActivity.this);
                     new ErrorDialog().createDialog(alertDialogBuilder, e.getMessage());
-                } catch (RegistrationFailedException rfe) {
-                    Log.e(getResources().getString(R.string.app_name), rfe.getMessage());
                 }
             }
         });
@@ -68,7 +66,7 @@ public class RegisterActivity extends Activity {
             Editable emailTextFromInput,
             Editable passwordTextFromInput,
             Editable confirmPasswordTextFromInput)
-            throws IllegalCredentialsException, EmailAlreadyRegisteredException, NotMatchingCredentialsException {
+            throws IllegalCredentialsException, RegistrationFailedException{
 
         if (emailTextFromInput == null || emailTextFromInput.equals(Constants.EMPTY_VALUE)) {
             throw new IllegalCredentialsException(getResources().getString(R.string.register_please_enter_email));

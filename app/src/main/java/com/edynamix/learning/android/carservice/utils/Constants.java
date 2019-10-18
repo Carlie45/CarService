@@ -6,8 +6,9 @@ public interface Constants {
     public static final char FULL_STOP = '.';
 
     public static final String EMPTY_VALUE = "";
-    public static final String SHARED_PREFERENCES_JSON_CARS_KEY = "cars";
     public static final String SHARED_PREFERENCES_JSON_USERS_KEY = "users";
+    public static final String SHARED_PREFERENCES_JSON_CARS_KEY = "cars";
+    public static final String SHARED_PREFERENCES_JSON_CAR_OWNERS_KEY = "car_owners";
 
     // Login page error dialog related constants.
     public static final int MAX_EMAIL_LENGTH = 50;

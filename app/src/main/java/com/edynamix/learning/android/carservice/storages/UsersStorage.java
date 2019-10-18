@@ -54,7 +54,7 @@ public class UsersStorage {
         return gson.toJson(userList);
     }
 
-    public static List<User> deserializeFromJson(String json) {
+    public List<User> deserializeFromJson(String json) {
         Type typeOfT = TypeToken.getParameterized(List.class, User.class).getType();
         return new Gson().fromJson(json, typeOfT);
     }

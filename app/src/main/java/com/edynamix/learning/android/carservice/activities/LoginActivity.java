@@ -41,14 +41,8 @@ public class LoginActivity extends Activity {
                     Editable passwordTextFromInput = editTextLoginPassword.getText();
 
                     checkCredentials(emailTextFromInput, passwordTextFromInput);
-                    // We have already verified the entered credentials, so we can use them as strings.
-                    String email = emailTextFromInput.toString();
-                    String password = passwordTextFromInput.toString();
 
-                    LoginDataValidator validator = new LoginDataValidator(LoginActivity.this);
-                    validator.validateCredentials(email, password);
-
-                    saveLoggedInUserToSharedPreferences(email);
+                    saveLoggedInUserToSharedPreferences(emailTextFromInput.toString());
 
                     Intent navigateToListCarsActivity = new Intent(LoginActivity.this, ListCarsActivity.class);
                     startActivity(navigateToListCarsActivity);
@@ -82,6 +76,12 @@ public class LoginActivity extends Activity {
         if (passwordTextFromInput == null || passwordTextFromInput.equals(Constants.EMPTY_VALUE)) {
             throw new IllegalCredentialsException(getResources().getString(R.string.register_please_enter_password));
         }
+
+        String email = emailTextFromInput.toString();
+        String password = passwordTextFromInput.toString();
+
+        LoginDataValidator validator = new LoginDataValidator(LoginActivity.this);
+        validator.validateCredentials(email, password);
     }
 
     private void saveLoggedInUserToSharedPreferences(String email) {

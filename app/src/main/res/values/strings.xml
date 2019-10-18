@@ -37,4 +37,41 @@
     <string name="register_password_does_not_contain_spec_char">The password does not contain a special character.</string>
     <string name="register_passwords_do_not_match">The passwords do not match.</string>
     <string name="register_registration_failed">Registration failed.</string>
+
+    <!-- List cars -->
+    <string name="list_cars_add_car">Add Car</string>
+    <string name="list_cars_add_car_owner">Add Car Owner</string>
+
+    <!-- Car details -->
+    <string name="car_details_brand_and_model">Brand and model</string>
+    <string name="car_details_colour">Colour</string>
+    <string name="car_details_doors_count">Doors Count</string>
+    <string name="car_details_year_of_manufacture">Year of Manufacture</string>
+    <string name="car_details_car_owner">Car Owner</string>
+    <string name="car_details_added_by_user">Added by User</string>
+
+    <!-- Add car -->
+    <string name="add_car_brand">Brand</string>
+    <string name="add_car_model">Model</string>
+    <string name="add_car_colour">Colour</string>
+    <string name="add_car_doors_count">Doors Count</string>
+    <string name="add_car_year_of_manufacture">Year of Manufacture</string>
+    <string name="add_car_selected_year">Selected Year</string>
+    <string name="add_car_pick_year">Pick Year</string>
+    <string name="add_car_car_owner">Car Owner</string>
+    <string name="add_car_add_new_owner">Add New</string>
+    <string name="add_car_create">Create</string>
+    <string name="add_car_cancel">Cancel</string>
+    <string name="add_car_select">Select</string>
+    <string name="add_car_select_year_of_manufacture">Select year of manufacture</string>
+    <string name="add_car_car_saved_successfully_message">The car was saved successfully</string>
+
+    <!-- Add car owner -->
+    <string name="add_car_owner_first_name">First name</string>
+    <string name="add_car_owner_last_name">Last name</string>
+    <string name="add_car_owner_address">Address</string>
+    <string name="add_car_owner_phone">Phone</string>
+    <string name="add_car_owner_email">E-mail</string>
+    <string name="add_car_owner_create">Create</string>
+    <string name="add_car_car_owner_saved_successfully_message">The car owner was saved successfully</string>
 </resources>

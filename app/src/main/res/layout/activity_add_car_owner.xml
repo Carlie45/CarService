@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddCarOwnerActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:id="@+id/scrollViewAddCarOwnerDetails"
+        android:layout_below="@id/appToolbar"
+        android:fillViewport="false"
+        style="@style/FullWidth">
+
+        <LinearLayout
+            android:orientation="vertical"
+            style="@style/FullWidth">
+
+            <TextView
+                android:text="@string/add_car_owner_first_name"
+                style="@style/PropertyLabel"/>
+
+            <EditText
+                android:id="@+id/editTextAddCarOwnerFirstName"
+                android:hint="@string/add_car_owner_first_name"
+                style="@style/PropertyLabel.EditText"/>
+
+            <TextView
+                android:text="@string/add_car_owner_last_name"
+                style="@style/PropertyLabel"/>
+
+            <EditText
+                android:id="@+id/editTextAddCarOwnerLastName"
+                android:hint="@string/add_car_owner_last_name"
+                style="@style/PropertyLabel.EditText"/>
+
+            <TextView
+                android:text="@string/add_car_owner_address"
+                style="@style/PropertyLabel"/>
+
+            <EditText
+                android:id="@+id/editTextAddCarOwnerAddress"
+                android:hint="@string/add_car_owner_address"
+                style="@style/PropertyLabel.EditText"/>
+
+            <TextView
+                android:text="@string/add_car_owner_phone"
+                style="@style/PropertyLabel"/>
+
+            <EditText
+                android:id="@+id/editTextAddCarOwnerPhone"
+                android:hint="@string/add_car_owner_phone"
+                style="@style/PropertyLabel.EditText"/>
+
+            <TextView
+                android:text="@string/add_car_owner_email"
+                style="@style/PropertyLabel"/>
+
+            <EditText
+                android:id="@+id/editTextAddCarOwnerEmail"
+                android:hint="@string/add_car_owner_email"
+                style="@style/PropertyLabel.EditText"/>
+
+            <Button
+                android:id="@+id/buttonAddCarOwnerCreate"
+                style="@style/FullWidth.Button"
+                android:text="@string/add_car_owner_create"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -10,9 +10,21 @@
         android:roundIcon="@drawable/ic_car"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ListCarsActivity"></activity>
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.RegisterActivity" />
+        <activity
+            android:name=".activities.AddCarOwnerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activities.AddCarActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activities.ListCarsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
