@@ -1,26 +1,28 @@
 package com.edynamix.learning.android.carservice.views;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.view.Display;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.edynamix.learning.android.carservice.R;
+import com.edynamix.learning.android.carservice.activities.ListDamagesActivity;
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.CarOwner;
 import com.edynamix.learning.android.carservice.models.Damage;
 import com.edynamix.learning.android.carservice.storages.CarOwnersStorage;
+import com.edynamix.learning.android.carservice.utils.Constants;
 
 import java.util.List;
 
 public class CarDetailsView extends LinearLayout {
 
-    public CarDetailsView(Context context, Car car) {
+    public CarDetailsView(final Context context, final Car car) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -82,5 +84,24 @@ public class CarDetailsView extends LinearLayout {
                 linearLayoutCarDetailsDamageGallery.addView(imageView);
             }
         }
+
+        LinearLayout linearLayoutCarDetailsDamagesContainer = (LinearLayout) findViewById(R.id.linearLayoutCarDetailsDamagesContainer);
+        Button buttonCarDetailsCheckAllDamages = new Button(context);
+        buttonCarDetailsCheckAllDamages.setTag(car.id);
+        LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        buttonCarDetailsCheckAllDamages.setLayoutParams(layoutParams);
+        buttonCarDetailsCheckAllDamages.setBackgroundColor(getResources().getColor(R.color.colorLightBlue));
+        buttonCarDetailsCheckAllDamages.setText(R.string.car_details_check_all_damages);
+        buttonCarDetailsCheckAllDamages.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent navigateToListDamagesActivity = new Intent(context, ListDamagesActivity.class);
+                navigateToListDamagesActivity.putExtra(Constants.EXTRA_CAR_ID, (long) v.getTag()); // the tag is the car id
+                context.startActivity(navigateToListDamagesActivity);
+            }
+        });
+
+        linearLayoutCarDetailsDamagesContainer.addView(buttonCarDetailsCheckAllDamages);
+
     }
 }

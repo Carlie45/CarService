@@ -30,6 +30,25 @@ public class CarOwnersStorage {
         return this.carOwnersList;
     }
 
+    public long getNextCarOwnerId() {
+        if (carOwnersList.size() == 0) {
+            return 1;
+        }
+
+        CarOwner lastCarOwner = carOwnersList.get(carOwnersList.size() - 1);
+        return lastCarOwner.id + 1;
+    }
+
+    public boolean isCarOwnerWithIdInTheStorage(long carOwnerId) {
+        for (CarOwner carOwner : carOwnersList) {
+            if (carOwner.id == carOwnerId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void addCarOwner(CarOwner carOwner) {
         carOwnersList.add(carOwner);
         storeDataToSharedPrefs();

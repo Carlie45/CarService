@@ -2,13 +2,17 @@ package com.edynamix.learning.android.carservice.models;
 
 public class CarOwnerBuilder {
 
-    private static int counter = 0;
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String address;
     private String phone;
     private String email;
+
+    public CarOwnerBuilder setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public CarOwnerBuilder setFirstName(String firstName) {
         this.firstName = firstName;
@@ -36,7 +40,6 @@ public class CarOwnerBuilder {
     }
 
     public CarOwner build() {
-        this.id = ++counter;
         return new CarOwner(id, firstName, lastName, address, phone, email);
     }
 }

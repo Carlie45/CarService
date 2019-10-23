@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
@@ -52,6 +53,8 @@ public class RegisterActivity extends Activity {
                     String password = passwordTextFromInput.toString();
 
                     registerUser(email, password);
+
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_user_created), Toast.LENGTH_SHORT).show();
 
                     RegisterActivity.this.finish();
                 } catch (IllegalCredentialsException | RegistrationFailedException e) {

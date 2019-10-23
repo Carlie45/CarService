@@ -16,7 +16,7 @@
 
     <style name="LoginPageText">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:width">250dp</item>
+        <item name="android:width">@dimen/edit_text_length</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -70,7 +70,7 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
 
-    <style name="YearPickerDialogButton">
+    <style name="FillRemainingSpaceButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>

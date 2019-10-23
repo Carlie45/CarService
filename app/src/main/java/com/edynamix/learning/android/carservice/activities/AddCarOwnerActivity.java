@@ -70,15 +70,16 @@ public class AddCarOwnerActivity extends Activity {
                 String phone = editTextAddCarOwnerPhone.getText() != null ? editTextAddCarOwnerPhone.getText().toString() : null;
                 String email = editTextAddCarOwnerEmail.getText() != null ? editTextAddCarOwnerEmail.getText().toString() : null;
 
+                CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarOwnerActivity.this);
                 CarOwner newCarOwner = new CarOwnerBuilder()
                         .setFirstName(firstName)
                         .setLastName(lastName)
                         .setAddress(address)
                         .setPhone(phone)
                         .setEmail(email)
+                        .setId(carOwnersStorage.getNextCarOwnerId())
                         .build();
 
-                CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarOwnerActivity.this);
                 carOwnersStorage.addCarOwner(newCarOwner);
                 Toast.makeText(AddCarOwnerActivity.this, App.getRes().getString(R.string.add_car_car_owner_saved_successfully_message), Toast.LENGTH_LONG).show();
 

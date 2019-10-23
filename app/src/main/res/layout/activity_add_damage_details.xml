@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddDamageDetailsActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/editTextAddDamageDetailsDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appToolbar"
+        android:layout_margin="@dimen/normal_margin"
+        android:hint="@string/add_damage_details_description_hint"
+        android:textColorHint="@color/colorGrey"/>
+
+    <ImageView
+        android:id="@+id/imageViewAddDamageDetailsPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/editTextAddDamageDetailsDescription"
+        android:layout_above="@id/buttonAddDamageDetailsTakePhoto"/>
+
+    <Button
+        android:id="@+id/buttonAddDamageDetailsTakePhoto"
+        android:layout_above="@id/linearLayoutAddDamageDetailsButtons"
+        android:text="@string/add_damage_details_take_photo"
+        style="@style/FullWidth.Button"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAddDamageDetailsButtons"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        style="@style/FullWidth">
+
+        <Button
+            android:id="@+id/buttonAddDamageDetailsCancel"
+            android:layout_alignParentLeft="true"
+            android:text="@string/add_damage_details_cancel"
+            style="@style/FillRemainingSpaceButton"/>
+
+        <Button
+            android:id="@+id/buttonAddDamageDetailsAdd"
+            android:layout_alignParentRight="true"
+            android:text="@string/add_damage_details_add"
+            style="@style/FillRemainingSpaceButton"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

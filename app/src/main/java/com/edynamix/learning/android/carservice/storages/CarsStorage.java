@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.Nullable;
+
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.utils.Constants;
 import com.google.gson.Gson;
@@ -30,13 +32,33 @@ public class CarsStorage {
         storeDataToSharedPrefs();
     }
 
-    public void deleteCar(int carIndex) {
-        carsList.remove(carIndex);
+    public void updateCar(int carIndex, Car newValue) {
+        carsList.set(carIndex - 1, newValue); // Replace the current car at this index.
         storeDataToSharedPrefs();
     }
 
     public List<Car> getCars() {
         return this.carsList;
+    }
+
+    @Nullable
+    public Car getCarWithId(long id) {
+        for (Car car : carsList) {
+            if (car.id == id) {
+                return car;
+            }
+        }
+
+        return null;
+    }
+
+    public long getNextCarId() {
+        if (carsList.size() == 0) {
+            return 1;
+        }
+
+        Car lastCar = carsList.get(carsList.size() - 1);
+        return lastCar.id + 1;
     }
 
     public String serializeToJson() {

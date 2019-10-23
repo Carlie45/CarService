@@ -47,20 +47,28 @@
         style="@style/FullWidth"/>
 
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollViewCarDetailsGallery"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+    <LinearLayout
+        android:id="@+id/linearLayoutCarDetailsDamagesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/linearLayoutCarDetailsDamageGallery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewCarDetailsGallery"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:fillViewport="true">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutCarDetailsDamageGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    </HorizontalScrollView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>

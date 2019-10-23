@@ -1,6 +1,7 @@
 package com.edynamix.learning.android.carservice.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edynamix.learning.android.carservice.App;
+import com.edynamix.learning.android.carservice.OnLoggedInUserChangedListener;
 import com.edynamix.learning.android.carservice.R;
+import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.CarBuilder;
 import com.edynamix.learning.android.carservice.models.CarOwner;
@@ -57,6 +60,7 @@ public class AddCarActivity extends Activity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String sharedPrefsEmail = sharedPreferences.getString(Constants.SHARED_PREFERENCES_LOGGED_IN_USER, Constants.EMPTY_VALUE);
         textViewToolbarLoggedInEmail.setText(sharedPrefsEmail);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(new OnLoggedInUserChangedListener(textViewToolbarLoggedInEmail));
 
         // Toolbar logout button
         Button buttonToolbarLogout = (Button) findViewById(R.id.buttonToolbarLogout);
@@ -141,23 +145,32 @@ public class AddCarActivity extends Activity {
                 int doorsCount = editTextAddCarDoorsCount.getText() != null && editTextAddCarDoorsCount.getText().length() > 0 ?
                         Integer.parseInt(editTextAddCarDoorsCount.getText().toString()) : 0;
 
-                String addedByUser = ((TextView) findViewById(R.id.textViewToolbarLoggedInEmail)).getText().toString();
-                // Create car and save to storage
-                Car newCar = new CarBuilder()
-                        .setBrand(brand)
-                        .setModel(model)
-                        .setColour(colour)
-                        .setDoorsCount(doorsCount)
-                        .setYearOfManufacture(yearOfManufacture)
-                        .setCarOwnerId(carOwnerId)
-                        .setAddedByUser(addedByUser)
-                        .build();
+                CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarActivity.this);
+                boolean carOwnerExistsInStorage = carOwnersStorage.isCarOwnerWithIdInTheStorage(carOwnerId);
+                if (!carOwnerExistsInStorage) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddCarActivity.this);
+                    new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.add_car_enter_car_owner));
+                } else {
+                    CarsStorage carsStorage = new CarsStorage(AddCarActivity.this);
+                    String addedByUser = ((TextView) findViewById(R.id.textViewToolbarLoggedInEmail)).getText().toString();
+                    // Create car and save to storage
+                    Car newCar = new CarBuilder()
+                            .setId(carsStorage.getNextCarId())
+                            .setBrand(brand)
+                            .setModel(model)
+                            .setColour(colour)
+                            .setDoorsCount(doorsCount)
+                            .setYearOfManufacture(yearOfManufacture)
+                            .setCarOwnerId(carOwnerId)
+                            .setAddedByUser(addedByUser)
+                            .build();
 
-                CarsStorage carsStorage = new CarsStorage(AddCarActivity.this);
-                carsStorage.addCar(newCar);
-                Toast.makeText(AddCarActivity.this, App.getRes().getString(R.string.add_car_car_saved_successfully_message), Toast.LENGTH_LONG).show();
+                    carsStorage.addCar(newCar);
+                    Toast.makeText(AddCarActivity.this, App.getRes().getString(
+                            R.string.add_car_car_saved_successfully_message), Toast.LENGTH_LONG).show();
 
-                finish();
+                    finish();
+                }
             }
         });
     }
@@ -165,6 +178,7 @@ public class AddCarActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+
         CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarActivity.this);
         carOwners = carOwnersStorage.getCarOwners();
 

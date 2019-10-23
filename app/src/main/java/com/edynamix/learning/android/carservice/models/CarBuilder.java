@@ -2,6 +2,7 @@ package com.edynamix.learning.android.carservice.models;
 
 public class CarBuilder {
 
+    private long id;
     private String brand;
     private String model;
     private String colour;
@@ -11,6 +12,11 @@ public class CarBuilder {
     private String addedByUser;
 
     public CarBuilder() { }
+
+    public CarBuilder setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public CarBuilder setBrand(String brand) {
         this.brand = brand;
@@ -48,6 +54,6 @@ public class CarBuilder {
     }
 
     public Car build() {
-        return new Car(brand, model, colour, doorsCount, yearOfManufacture, carOwnerId, addedByUser);
+        return new Car(id, brand, model, colour, doorsCount, yearOfManufacture, carOwnerId, addedByUser);
     }
 }
