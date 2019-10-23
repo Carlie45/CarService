@@ -80,10 +80,11 @@
 
     <!-- List damages -->
     <string name="list_damages_add_new">Add New Damage</string>
-    <string name="list_damages_remove_all">Remove All</string>
+    <string name="list_damages_remove_all">Remove All Damages</string>
 
     <!-- Add damage -->
-    <string name="add_damage_remove_all_damages">Remove All Damages</string>
+    <string name="add_damage_remove_all">Remove All Damages</string>
+    <string name="add_damage_complete_changes">Complete Changes</string>
 
     <!-- Add damage details -->
     <string name="add_damage_details_description_hint">Add description for the damage.</string>

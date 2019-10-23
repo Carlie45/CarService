@@ -8,18 +8,33 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <Button
-        android:id="@+id/buttonAddDamageRemoveAllDamages"
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appToolbar"
-        android:layout_margin="@dimen/half_normal_margin"
-        android:background="@color/colorLightBlue"
-        android:text="@string/add_damage_remove_all_damages"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonAddDamageRemoveAllDamages"
+            android:layout_margin="@dimen/half_normal_margin"
+            android:background="@color/colorLightBlue"
+            android:text="@string/add_damage_remove_all"
+            style="@style/FillRemainingSpaceButton"/>
+
+        <Button
+            android:id="@+id/buttonAddDamageCompleteChanges"
+            android:layout_margin="@dimen/half_normal_margin"
+            android:background="@color/colorLightBlue"
+            android:text="@string/add_damage_complete_changes"
+            style="@style/FillRemainingSpaceButton"/>
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imageViewAddDamageCarTemplate"
-        android:layout_below="@id/buttonAddDamageRemoveAllDamages"
+        android:layout_below="@id/linearLayoutButtons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/normal_margin"

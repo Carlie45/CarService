@@ -2,43 +2,36 @@ package com.edynamix.learning.android.carservice.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.FileProvider;
-
-import com.edynamix.learning.android.carservice.App;
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.Damage;
 import com.edynamix.learning.android.carservice.storages.CarsStorage;
+import com.edynamix.learning.android.carservice.storages.DamagesStorage;
 import com.edynamix.learning.android.carservice.utils.Constants;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 public class AddDamageActivity extends Activity {
 
     private String imageSource;
-    private Dialog dialogDamageDescription;
-    private long carId;
+    private int carId;
+    private Car car;
+
+    private RelativeLayout relativeLayoutAddDamageContainer;
+    private final int CAR_TEMPLATE_TAG = -1;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,9 +40,9 @@ public class AddDamageActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_damage);
 
-        carId = getIntent().getExtras().getLong(Constants.EXTRA_CAR_ID);
-        CarsStorage carsStorage = new CarsStorage(AddDamageActivity.this);
-        final Car car = carsStorage.getCarWithId(carId);
+        carId = getIntent().getExtras().getInt(Constants.EXTRA_CAR_ID);
+        final CarsStorage carsStorage = new CarsStorage(AddDamageActivity.this);
+        car = carsStorage.getCarWithId(carId);
 
         // Toolbar back button
         Button buttonToolbarBack = (Button) findViewById(R.id.buttonToolbarBack);
@@ -77,87 +70,12 @@ public class AddDamageActivity extends Activity {
             }
         });
 
-        // Button remove all damages.
-        Button buttonAddDamageRemoveAllDamages = (Button) findViewById(R.id.buttonAddDamageRemoveAllDamages);
-        buttonAddDamageRemoveAllDamages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (Damage damage : car.damageList) {
-                    String photoSrc = damage.imageSource;
-                    File fileToDelete = new File(photoSrc);
-                    fileToDelete.delete();
-                }
-                car.damageList.clear();
-            }
-        });
-
         // Initialize car template.
-        final RelativeLayout relativeLayoutAddDamageContainer = (RelativeLayout) findViewById(R.id.relativeLayoutAddDamageContainer);
+        relativeLayoutAddDamageContainer = (RelativeLayout) findViewById(R.id.relativeLayoutAddDamageContainer);
 
-        // Place existing damages over the car template.
-        for (Damage damage : car.damageList) {
-            ImageView imageViewRedXForDamage = new ImageView(AddDamageActivity.this);
-            int toolbarHeight = 2 * (int) getResources().getDimension(R.dimen.toolbar_height);
-            imageViewRedXForDamage.setX(damage.xPositionOnCarTemplate);
-            imageViewRedXForDamage.setY(damage.yPositionOnCarTemplate + toolbarHeight);
-            int width = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-            int height = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-            imageViewRedXForDamage.setLayoutParams(layoutParams);
-            imageViewRedXForDamage.setImageResource(R.drawable.img_red_x);
-
-            // Add the image on the screen.
-            relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
-        }
-
-        // Dialog to add damage description.
-//        dialogDamageDescription = new Dialog(AddDamageActivity.this);
-//        dialogDamageDescription.setContentView(R.layout.dialog_damage_description);
-//        dialogDamageDescription.setTitle(App.getRes().getString(R.string.dialog_damage_description_title));
-//        dialogDamageDescription.show();
-
-        // Description for the damage.
-//        final EditText editTextDialogDamageDescription =
-//                (EditText) dialogDamageDescription.findViewById(R.id.editTextDialogDamageDescription);
-
-        // Take photo button.
-//        final Button buttonDialogDamageDescriptionTakePhoto =
-//                (Button) dialogDamageDescription.findViewById(R.id.buttonDialogDamageDescriptionTakePhoto);
-//        buttonDialogDamageDescriptionTakePhoto.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openCameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//                String pictureName;
-//                File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//                File fileToStoreThePicture = null;
-//                try {
-//                    pictureName = "damage" + "_" + carId + "_" + Damage.counter;
-//                    fileToStoreThePicture = File.createTempFile(pictureName,  ".png", storageDir);
-//                    Uri photoURI = FileProvider.getUriForFile(AddDamageActivity.this,
-//                            "com.edynamix.learning.android.carservice.fileprovider",
-//                            fileToStoreThePicture);
-//
-//                    openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                    startActivityForResult(openCameraIntent, 0);
-//                    buttonDialogDamageDescriptionTakePhoto.setVisibility(View.GONE);
-//                } catch (IOException e) {
-//                    // TODO: make an error dialog
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//
-//        // Cancel button.
-//        Button buttonDialogDamageDescriptionCancel =
-//                (Button) dialogDamageDescription.findViewById(R.id.buttonDialogDamageDescriptionCancel);
-//        buttonDialogDamageDescriptionCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialogDamageDescription.dismiss();
-//            }
-//        });
-
+        // Set a car template to mark the damages.
         final ImageView imageViewAddDamageCarTemplate = (ImageView) findViewById(R.id.imageViewAddDamageCarTemplate);
+        imageViewAddDamageCarTemplate.setTag(CAR_TEMPLATE_TAG); // Some value that cannot be a damage id.
         imageViewAddDamageCarTemplate.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -166,64 +84,110 @@ public class AddDamageActivity extends Activity {
                     final float xPos = event.getX();
                     final float yPos = event.getY();
 
-                    // Add button.
-//                    Button buttonDialogDamageDescriptionAdd =
-//                            (Button) dialogDamageDescription.findViewById(R.id.buttonDialogDamageDescriptionAdd);
-//                    buttonDialogDamageDescriptionAdd.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            final String damageDescription = editTextDialogDamageDescription.getText() != null
-//                                    ? editTextDialogDamageDescription.getText().toString()
-//                                    : Constants.EMPTY_VALUE;
-//                            Damage damage = new Damage(imageSource, damageDescription, xPos, yPos);
-//                            List<Damage> carDamages = car.damageList;
-//                            carDamages.add(damage);
-//                            CarsStorage carsStorage = new CarsStorage(AddDamageActivity.this);
-//                            carsStorage.updateCar((int) car.id, car);
-//                            dialogDamageDescription.dismiss();
-
-                            // Create image view with the X marker where touched.
-                            ImageView imageViewRedXForDamage = new ImageView(AddDamageActivity.this);
-                            int toolbarHeight = 2 * (int) getResources().getDimension(R.dimen.toolbar_height);
-                            imageViewRedXForDamage.setX(xPos);
-                            imageViewRedXForDamage.setY(yPos + toolbarHeight);
-                            int width = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-                            int height = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-                            imageViewRedXForDamage.setLayoutParams(layoutParams);
-                            imageViewRedXForDamage.setImageResource(R.drawable.img_red_x);
-
-                            // Add the image on the screen.
-                            relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
-
-                            Intent navigateToDamageDetailsActivity =
-                                    new Intent(AddDamageActivity.this, AddDamageDetailsActivity.class);
-                            navigateToDamageDetailsActivity.putExtra(Constants.EXTRA_CAR_ID, carId);
-                            startActivity(navigateToDamageDetailsActivity);
-//                        }
-//                    });
+                    // Create image view with the X marker where touched.
+//                    ImageView imageViewRedXForDamage = new ImageView(AddDamageActivity.this);
+//                    int toolbarHeight = 2 * (int) getResources().getDimension(R.dimen.toolbar_height);
+//                    imageViewRedXForDamage.setX(xPos);
+//                    imageViewRedXForDamage.setY(yPos + toolbarHeight);
+//                    int width = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
+//                    int height = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
+//                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+//                    imageViewRedXForDamage.setLayoutParams(layoutParams);
+//                    imageViewRedXForDamage.setImageResource(R.drawable.img_red_x);
 //
-//                    return true;
+//                    // Add the image on the screen.
+//                    relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
+//
+//                    // Add the image view to the list.
+//                    imageViewListForDamageXMarks.add(imageViewRedXForDamage);
+
+                    // Go to the add details activity.
+                    Intent navigateToDamageDetailsActivity =
+                            new Intent(AddDamageActivity.this, AddDamageDetailsActivity.class);
+
+                    Bundle extras = new Bundle();
+                    extras.putFloat(Constants.EXTRA_DAMAGE_X_POS, xPos);
+                    extras.putFloat(Constants.EXTRA_DAMAGE_Y_POS, yPos);
+                    extras.putInt(Constants.EXTRA_CAR_ID, carId);
+                    navigateToDamageDetailsActivity.putExtras(extras);
+                    startActivity(navigateToDamageDetailsActivity);
                 }
                 return false;
             }
         });
+
+        // Button complete.
+        Button buttonAddDamageCompleteChanges = (Button) findViewById(R.id.buttonAddDamageCompleteChanges);
+        buttonAddDamageCompleteChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Button remove all damages.
+        Button buttonAddDamageRemoveAllDamages = (Button) findViewById(R.id.buttonAddDamageRemoveAllDamages);
+        buttonAddDamageRemoveAllDamages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DamagesStorage damagesStorage = new DamagesStorage(AddDamageActivity.this);
+                for (Integer damageId : car.damageIdsList) {
+                    Damage damage = damagesStorage.getDamageWithId(damageId);
+                    String photoSrc = damage.imageSource;
+                    File fileToDelete = new File(photoSrc);
+                    if (fileToDelete.exists()) {
+                        fileToDelete.delete();
+                    }
+                    removeImageViewForDamage(damage.id);
+                    damagesStorage.deleteDamageWithId(damageId);
+                }
+                car.damageIdsList.clear();
+                carsStorage.updateCar(car.id, car);
+            }
+        });
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 0 && resultCode == RESULT_OK) {
+//            File imgFile = new File(data.getExtras().getString(MediaStore.EXTRA_OUTPUT));
+//            if(imgFile.exists()) {
+//                imageSource = imgFile.getPath();
+//                Toast.makeText(AddDamageActivity.this, "The image was saved successfully.", Toast.LENGTH_SHORT);
+//            }
+//        }
+//        Intent navigateToAddDamageActivity = new Intent(AddDamageActivity.this, AddDamageActivity.class);
+//        navigateToAddDamageActivity.putExtra(Constants.EXTRA_CAR_ID, carId);
+//        startActivity(navigateToAddDamageActivity);
+//
+//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DamagesStorage damagesStorage = new DamagesStorage(AddDamageActivity.this);
+        // Place existing damages over the car template.
+        for (Integer damageId : car.damageIdsList) {
+            Damage damage = damagesStorage.getDamageWithId(damageId);
+            ImageView imageViewRedXForDamage = createXMarkForDamageLocation(damage);
+            // Add the image on the screen.
+            relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
+        }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            File imgFile = new File(data.getExtras().getString(MediaStore.EXTRA_OUTPUT));
-            if(imgFile.exists()) {
-                imageSource = imgFile.getPath();
-                Toast.makeText(AddDamageActivity.this, "The image was saved successfully.", Toast.LENGTH_SHORT);
-            }
-        }
-        Intent navigateToAddDamageActivity = new Intent(AddDamageActivity.this, AddDamageActivity.class);
-        navigateToAddDamageActivity.putExtra(Constants.EXTRA_CAR_ID, carId);
-        startActivity(navigateToAddDamageActivity);
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(Constants.EXTRA_CAR_ID, carId);
+    }
 
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.get(Constants.EXTRA_CAR_ID) != null) {
+            carId = (int) savedInstanceState.get(Constants.EXTRA_CAR_ID);
+        }
     }
 
     private void removeLoggedInUser() {
@@ -231,5 +195,38 @@ public class AddDamageActivity extends Activity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(Constants.SHARED_PREFERENCES_LOGGED_IN_USER);
         editor.commit();
+    }
+
+    private ImageView createXMarkForDamageLocation(Damage damage) {
+        ImageView imageViewRedXForDamage = new ImageView(AddDamageActivity.this);
+        int toolbarHeight = 2 * (int) getResources().getDimension(R.dimen.toolbar_height);
+        int margin = (int) getResources().getDimension(R.dimen.half_normal_margin);
+
+        imageViewRedXForDamage.setX(damage.xPositionOnCarTemplate);
+        imageViewRedXForDamage.setY(damage.yPositionOnCarTemplate + toolbarHeight + margin);
+
+        int width = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
+        int height = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
+        imageViewRedXForDamage.setLayoutParams(layoutParams);
+        imageViewRedXForDamage.setTag(damage.id);
+
+        imageViewRedXForDamage.setImageResource(R.drawable.img_red_x);
+
+        return imageViewRedXForDamage;
+    }
+
+    private void removeImageViewForDamage(int damageId) {
+        for (int i = 0; i < relativeLayoutAddDamageContainer.getChildCount(); i++) {
+            View view = relativeLayoutAddDamageContainer.getChildAt(i);
+            if (view instanceof ImageView) {
+                int tag = (int) view.getTag();
+                if (tag == damageId) {
+                    relativeLayoutAddDamageContainer.removeView(view);
+                    return;
+                }
+            }
+        }
     }
 }

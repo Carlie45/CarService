@@ -2,11 +2,9 @@ package com.edynamix.learning.android.carservice.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +12,7 @@ import android.widget.Toast;
 
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
-import com.edynamix.learning.android.carservice.exceptions.EmailAlreadyRegisteredException;
 import com.edynamix.learning.android.carservice.exceptions.IllegalCredentialsException;
-import com.edynamix.learning.android.carservice.exceptions.NotMatchingCredentialsException;
 import com.edynamix.learning.android.carservice.exceptions.RegistrationFailedException;
 import com.edynamix.learning.android.carservice.models.User;
 import com.edynamix.learning.android.carservice.storages.UsersStorage;
@@ -54,7 +50,7 @@ public class RegisterActivity extends Activity {
 
                     registerUser(email, password);
 
-                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_user_created), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_user_created), Toast.LENGTH_LONG).show();
 
                     RegisterActivity.this.finish();
                 } catch (IllegalCredentialsException | RegistrationFailedException e) {

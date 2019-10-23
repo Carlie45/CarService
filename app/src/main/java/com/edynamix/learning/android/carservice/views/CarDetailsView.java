@@ -2,6 +2,7 @@ package com.edynamix.learning.android.carservice.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.CarOwner;
 import com.edynamix.learning.android.carservice.models.Damage;
 import com.edynamix.learning.android.carservice.storages.CarOwnersStorage;
+import com.edynamix.learning.android.carservice.storages.DamagesStorage;
 import com.edynamix.learning.android.carservice.utils.Constants;
 
 import java.util.List;
@@ -56,14 +58,21 @@ public class CarDetailsView extends LinearLayout {
         textViewCarDetailsAddedByUser.setText(getResources().getString(R.string.car_details_added_by_user) + ": " + car.addedByUser);
 
         LinearLayout linearLayoutCarDetailsDamageGallery = (LinearLayout) findViewById(R.id.linearLayoutCarDetailsDamageGallery);
-        if (car.damageList != null) {
-            for (Damage damage : car.damageList) {
-                ImageView imageView = new ImageView(context);
-                imageView.setBackgroundResource(R.drawable.ic_car);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        DamagesStorage damagesStorage = new DamagesStorage(context);
+        for (Integer damageId : car.damageIdsList) {
+            Damage damage = damagesStorage.getDamageWithId(damageId);
+            ImageView imageView = new ImageView(context);
+            if (damage != null && damage.imageSource != null && damage.imageSource.length() != 0) {
+                Drawable drawablePhoto = Drawable.createFromPath(damage.imageSource);
+                imageView.setImageDrawable(drawablePhoto);
+            } else {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_placeholder));
+            }
 
-                int width = (int) (40 * context.getResources().getDisplayMetrics().density);
-                int height = (int) (40 * context.getResources().getDisplayMetrics().density);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            int width = (int) (40 * context.getResources().getDisplayMetrics().density);
+            int height = (int) (40 * context.getResources().getDisplayMetrics().density);
 //                BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(R.drawable.ic_car);
 //                int drawableHeight = bd.getBitmap().getHeight();
 //                int drawableWidth = bd.getBitmap().getWidth();
@@ -78,11 +87,10 @@ public class CarDetailsView extends LinearLayout {
 //
 //                imageView.setScaleX((float) scaleX);
 //                imageView.setScaleY((float) scaleY);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
-                params.setMargins(10,10,10,10);
-                imageView.setLayoutParams(params);
-                linearLayoutCarDetailsDamageGallery.addView(imageView);
-            }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
+            params.setMargins(10,10,10,10);
+            imageView.setLayoutParams(params);
+            linearLayoutCarDetailsDamageGallery.addView(imageView);
         }
 
         LinearLayout linearLayoutCarDetailsDamagesContainer = (LinearLayout) findViewById(R.id.linearLayoutCarDetailsDamagesContainer);
@@ -96,7 +104,7 @@ public class CarDetailsView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Intent navigateToListDamagesActivity = new Intent(context, ListDamagesActivity.class);
-                navigateToListDamagesActivity.putExtra(Constants.EXTRA_CAR_ID, (long) v.getTag()); // the tag is the car id
+                navigateToListDamagesActivity.putExtra(Constants.EXTRA_CAR_ID, (int) v.getTag()); // the tag is the car id
                 context.startActivity(navigateToListDamagesActivity);
             }
         });

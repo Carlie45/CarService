@@ -51,6 +51,7 @@
             <EditText
                 android:id="@+id/editTextAddCarOwnerPhone"
                 android:hint="@string/add_car_owner_phone"
+                android:inputType="phone"
                 style="@style/PropertyLabel.EditText"/>
 
             <TextView
@@ -60,6 +61,7 @@
             <EditText
                 android:id="@+id/editTextAddCarOwnerEmail"
                 android:hint="@string/add_car_owner_email"
+                android:inputType="textEmailAddress"
                 style="@style/PropertyLabel.EditText"/>
 
             <Button

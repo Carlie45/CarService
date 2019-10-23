@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Car {
 
-    public long id;
+    public int id;
     public String brand;
     public String model;
     public String colour;
@@ -15,9 +15,9 @@ public class Car {
     public int carOwnerId;
     public String addedByUser;
 
-    public List<Damage> damageList;
+    public List<Integer> damageIdsList;
 
-    Car(long id, String brand, String model, String colour, int doorsCount, int  yearOfManufacture, int carOwnerId, String addedByUser) {
+    Car(int id, String brand, String model, String colour, int doorsCount, int  yearOfManufacture, int carOwnerId, String addedByUser) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -26,7 +26,7 @@ public class Car {
         this.yearOfManufacture = yearOfManufacture;
         this.carOwnerId = carOwnerId;
         this.addedByUser = addedByUser;
-        this.damageList = new ArrayList<>();
+        this.damageIdsList = new ArrayList<>();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Car {
                 ", yearOfManufacture=" + yearOfManufacture +
                 ", carOwnerId=" + carOwnerId +
                 ", addedByUser='" + addedByUser + '\'' +
-                ", damageList=" + damageList +
+                ", damageIdsList=" + damageIdsList +
                 '}';
     }
 

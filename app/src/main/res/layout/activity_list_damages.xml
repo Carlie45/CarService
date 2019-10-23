@@ -15,15 +15,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonListDamagesAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/half_normal_margin"
-            android:background="@color/colorLightBlue"
-            android:text="@string/list_damages_add_new"/>
-
-        <Button
             android:id="@+id/buttonListDamagesRemoveAll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,6 +23,31 @@
             android:background="@color/colorLightBlue"
             android:text="@string/list_damages_remove_all"/>
 
+        <Button
+            android:id="@+id/buttonListDamagesAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/half_normal_margin"
+            android:background="@color/colorLightBlue"
+            android:text="@string/list_damages_add_new"/>
+
     </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayoutListDamagesButtons">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutListDamages"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
 </RelativeLayout>

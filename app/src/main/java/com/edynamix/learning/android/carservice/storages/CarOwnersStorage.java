@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.CarOwner;
 import com.edynamix.learning.android.carservice.utils.Constants;
 import com.google.gson.Gson;
@@ -30,7 +29,7 @@ public class CarOwnersStorage {
         return this.carOwnersList;
     }
 
-    public long getNextCarOwnerId() {
+    public int getNextCarOwnerId() {
         if (carOwnersList.size() == 0) {
             return 1;
         }
@@ -39,7 +38,7 @@ public class CarOwnersStorage {
         return lastCarOwner.id + 1;
     }
 
-    public boolean isCarOwnerWithIdInTheStorage(long carOwnerId) {
+    public boolean isCarOwnerWithIdInTheStorage(int carOwnerId) {
         for (CarOwner carOwner : carOwnersList) {
             if (carOwner.id == carOwnerId) {
                 return true;

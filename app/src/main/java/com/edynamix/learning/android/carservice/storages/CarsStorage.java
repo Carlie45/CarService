@@ -42,7 +42,7 @@ public class CarsStorage {
     }
 
     @Nullable
-    public Car getCarWithId(long id) {
+    public Car getCarWithId(int id) {
         for (Car car : carsList) {
             if (car.id == id) {
                 return car;
@@ -52,7 +52,7 @@ public class CarsStorage {
         return null;
     }
 
-    public long getNextCarId() {
+    public int getNextCarId() {
         if (carsList.size() == 0) {
             return 1;
         }

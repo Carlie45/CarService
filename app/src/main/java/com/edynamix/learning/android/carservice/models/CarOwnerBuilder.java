@@ -2,14 +2,14 @@ package com.edynamix.learning.android.carservice.models;
 
 public class CarOwnerBuilder {
 
-    private long id;
+    private int id;
     private String firstName;
     private String lastName;
     private String address;
     private String phone;
     private String email;
 
-    public CarOwnerBuilder setId(long id) {
+    public CarOwnerBuilder setId(int id) {
         this.id = id;
         return this;
     }
