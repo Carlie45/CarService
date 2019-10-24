@@ -53,11 +53,6 @@ public class CarOwnersStorage {
         storeDataToSharedPrefs();
     }
 
-    public void deleteCarOwner(int carOwnerIndex) {
-        carOwnersList.remove(carOwnerIndex);
-        storeDataToSharedPrefs();
-    }
-
     public String serializeToJson() {
         return gson.toJson(carOwnersList);
     }
