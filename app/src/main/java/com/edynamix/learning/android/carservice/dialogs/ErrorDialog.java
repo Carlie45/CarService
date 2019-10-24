@@ -15,13 +15,14 @@ public class ErrorDialog {
         alertDialogBuilder.setMessage(errorMessageToDisplay);
         alertDialogBuilder.setCancelable(true);
 
-        alertDialogBuilder.setNegativeButton(
-                Constants.CLOSE,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+        DialogInterface.OnClickListener onClickDismissDialog = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        };
+
+        alertDialogBuilder.setNegativeButton(Constants.CLOSE, onClickDismissDialog);
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

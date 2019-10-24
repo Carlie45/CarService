@@ -81,9 +81,9 @@ public class AddCarActivity extends Activity {
 
         // Year of manufacture
         final TextView textViewAddCarShowSelectedYearOfManufacture = (TextView) findViewById(R.id.textViewAddCarShowSelectedYearOfManufacture);
-        displayCurrentYear(textViewAddCarShowSelectedYearOfManufacture);
+        displayCurrentYearInTextView(textViewAddCarShowSelectedYearOfManufacture);
 
-        // Buton select year of manufacture
+        // Button select year of manufacture
         Button buttonAddCarSelectYearOfManufacture = (Button) findViewById(R.id.buttonAddCarSelectYearOfManufacture);
         buttonAddCarSelectYearOfManufacture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +105,7 @@ public class AddCarActivity extends Activity {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                         yearOfManufacture = newVal;
-                        displaySelectedYear(textViewAddCarShowSelectedYearOfManufacture, String.valueOf(newVal));
+                        displaySelectedYearInTextView(textViewAddCarShowSelectedYearOfManufacture, String.valueOf(newVal));
                     }
                 });
 
@@ -214,7 +214,7 @@ public class AddCarActivity extends Activity {
         editor.commit();
     }
 
-    private void displayCurrentYear(TextView textView) {
+    private void displayCurrentYearInTextView(TextView textView) {
         StringBuilder formattedDate = new StringBuilder();
         formattedDate.append(App.getRes().getString(R.string.add_car_selected_year) + ": ");
 
@@ -226,7 +226,7 @@ public class AddCarActivity extends Activity {
         textView.setText(formattedDate.toString());
     }
 
-    private void displaySelectedYear(TextView textView, String dateAsString) {
+    private void displaySelectedYearInTextView(TextView textView, String dateAsString) {
         StringBuilder formattedDate = new StringBuilder();
         formattedDate.append(App.getRes().getString(R.string.add_car_selected_year));
         formattedDate.append(": ");

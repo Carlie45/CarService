@@ -15,21 +15,15 @@ public class ConfirmDialog {
         alertDialogBuilder.setMessage(messageToDisplay);
         alertDialogBuilder.setCancelable(true);
 
-        alertDialogBuilder.setNegativeButton(
-                Constants.CLOSE,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+        DialogInterface.OnClickListener onClickDismissDialog = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        };
 
-        alertDialogBuilder.setPositiveButton(
-                Constants.CONFIRM,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-        });
+        alertDialogBuilder.setNegativeButton(Constants.CLOSE, onClickDismissDialog);
+        alertDialogBuilder.setPositiveButton(Constants.CONFIRM, onClickDismissDialog);
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
