@@ -69,25 +69,11 @@ public class CarDetailsView extends LinearLayout {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_placeholder));
             }
 
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setAdjustViewBounds(true);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
             int width = (int) (40 * context.getResources().getDisplayMetrics().density);
-            int height = (int) (40 * context.getResources().getDisplayMetrics().density);
-//                BitmapDrawable bd = (BitmapDrawable) this.getResources().getDrawable(R.drawable.ic_car);
-//                int drawableHeight = bd.getBitmap().getHeight();
-//                int drawableWidth = bd.getBitmap().getWidth();
-//                double scaleX = 1;
-//                if (drawableWidth > width) {
-//                    scaleX = width / drawableWidth;
-//                }
-//                double scaleY = 1;
-//                if (drawableWidth > width) {
-//                    scaleY = height / drawableHeight;
-//                }
-//
-//                imageView.setScaleX((float) scaleX);
-//                imageView.setScaleY((float) scaleY);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(10,10,10,10);
             imageView.setLayoutParams(params);
             linearLayoutCarDetailsDamageGallery.addView(imageView);
@@ -110,6 +96,5 @@ public class CarDetailsView extends LinearLayout {
         });
 
         linearLayoutCarDetailsDamagesContainer.addView(buttonCarDetailsCheckAllDamages);
-
     }
 }

@@ -113,7 +113,6 @@ public class ListDamagesActivity extends Activity {
             damageDetailsView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-
                     removeLinearLayoutForDamage((int) v.getTag());
                     return true;
                 }
@@ -148,5 +147,5 @@ public class ListDamagesActivity extends Activity {
             }
         }
     }
-    
+
 }

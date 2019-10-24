@@ -31,7 +31,6 @@ public class AddDamageActivity extends Activity {
     private Car car;
 
     private RelativeLayout relativeLayoutAddDamageContainer;
-    private final int CAR_TEMPLATE_TAG = -1;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -75,7 +74,6 @@ public class AddDamageActivity extends Activity {
 
         // Set a car template to mark the damages.
         final ImageView imageViewAddDamageCarTemplate = (ImageView) findViewById(R.id.imageViewAddDamageCarTemplate);
-        imageViewAddDamageCarTemplate.setTag(CAR_TEMPLATE_TAG); // Some value that cannot be a damage id.
         imageViewAddDamageCarTemplate.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -221,10 +219,13 @@ public class AddDamageActivity extends Activity {
         for (int i = 0; i < relativeLayoutAddDamageContainer.getChildCount(); i++) {
             View view = relativeLayoutAddDamageContainer.getChildAt(i);
             if (view instanceof ImageView) {
-                int tag = (int) view.getTag();
-                if (tag == damageId) {
-                    relativeLayoutAddDamageContainer.removeView(view);
-                    return;
+                Object obj = view.getTag();
+                if (obj != null) {
+                    int tag = (int) obj;
+                    if (tag == damageId) {
+                        relativeLayoutAddDamageContainer.removeView(view);
+                        return;
+                    }
                 }
             }
         }

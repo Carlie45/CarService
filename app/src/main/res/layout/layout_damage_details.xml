@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageViewDamageDetails"
                 android:padding="@dimen/normal_margin"
-                android:textSize="@dimen/medium_text_size"/>
+                android:textSize="@dimen/medium_text_size"
+                android:textColor="@color/colorBlack"/>
 
         </RelativeLayout>
 

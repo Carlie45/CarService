@@ -34,20 +34,28 @@
 
     </LinearLayout>
 
-    <HorizontalScrollView
+    <LinearLayout
+        android:id="@+id/linearLayoutCarDetailsDamagesContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayoutListDamagesButtons">
+        android:layout_below="@id/linearLayoutListDamagesButtons"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/linearLayoutListDamages"
-            android:layout_width="600dp"
+        <HorizontalScrollView
+            android:layout_width="550dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:fillViewport="true">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutListDamages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    </HorizontalScrollView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
 
 </RelativeLayout>
