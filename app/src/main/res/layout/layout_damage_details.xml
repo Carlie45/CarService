@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayoutDamageDetails"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/MatchParent">
 
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -13,22 +12,19 @@
         card_view:cardCornerRadius="@dimen/normal_margin">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/MatchParent">
 
             <ImageView
                 android:id="@+id/imageViewDamageDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/WrapContent"/>
 
             <TextView
                 android:id="@+id/textViewDamageDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/imageViewDamageDetails"
                 android:padding="@dimen/normal_margin"
                 android:textSize="@dimen/medium_text_size"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                style="@style/FullWidth"/>
 
         </RelativeLayout>
 

@@ -29,13 +29,7 @@ public class ListCarsActivity extends Activity {
 
         // Toolbar back button
         Button buttonToolbarBack = (Button) findViewById(R.id.buttonToolbarBack);
-        buttonToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent navigateToLoginActivity = new Intent(ListCarsActivity.this, LoginActivity.class);
-                startActivity(navigateToLoginActivity);
-            }
-        });
+        buttonToolbarBack.setVisibility(View.GONE);
 
         // Toolbar logged in user
         TextView textViewToolbarLoggedInEmail = (TextView) findViewById(R.id.textViewToolbarLoggedInEmail);

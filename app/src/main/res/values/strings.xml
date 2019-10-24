@@ -51,6 +51,7 @@
     <string name="car_details_car_owner">Car Owner</string>
     <string name="car_details_added_by_user">Added by User</string>
     <string name="car_details_check_all_damages">Check All Damages</string>
+    <string name="car_details_no_damage_images">No damages.</string>
 
     <!-- Add car -->
     <string name="add_car_brand">Brand</string>
@@ -87,8 +88,12 @@
     <string name="add_damage_complete_changes">Complete Changes</string>
 
     <!-- Add damage details -->
-    <string name="add_damage_details_description_hint">Add description for the damage.</string>
+    <string name="add_damage_details_description_hint">Add description for the damage</string>
     <string name="add_damage_details_cancel">Cancel</string>
     <string name="add_damage_details_add">Add</string>
     <string name="add_damage_details_take_photo">Take Photo</string>
+
+    <!-- Confirm dialog -->
+    <string name="confirm_dialog_title">Please confirm the delete action</string>
+    <string name="confirm_dialog_message">Proceeding with this action with delete the damage permanently. Are you sure you want to proceed?</string>
 </resources>

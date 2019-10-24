@@ -15,10 +15,6 @@ public class App extends Application {
         res = getResources();
     }
 
-    public static App getInstance() {
-        return mInstance;
-    }
-
     public static Resources getRes() {
         return res;
     }

@@ -82,23 +82,6 @@ public class AddDamageActivity extends Activity {
                     final float xPos = event.getX();
                     final float yPos = event.getY();
 
-                    // Create image view with the X marker where touched.
-//                    ImageView imageViewRedXForDamage = new ImageView(AddDamageActivity.this);
-//                    int toolbarHeight = 2 * (int) getResources().getDimension(R.dimen.toolbar_height);
-//                    imageViewRedXForDamage.setX(xPos);
-//                    imageViewRedXForDamage.setY(yPos + toolbarHeight);
-//                    int width = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-//                    int height = (int) getResources().getDimension(R.dimen.add_damage_x_dimens);
-//                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
-//                    imageViewRedXForDamage.setLayoutParams(layoutParams);
-//                    imageViewRedXForDamage.setImageResource(R.drawable.img_red_x);
-//
-//                    // Add the image on the screen.
-//                    relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
-//
-//                    // Add the image view to the list.
-//                    imageViewListForDamageXMarks.add(imageViewRedXForDamage);
-
                     // Go to the add details activity.
                     Intent navigateToDamageDetailsActivity =
                             new Intent(AddDamageActivity.this, AddDamageDetailsActivity.class);
@@ -144,22 +127,6 @@ public class AddDamageActivity extends Activity {
             }
         });
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 0 && resultCode == RESULT_OK) {
-//            File imgFile = new File(data.getExtras().getString(MediaStore.EXTRA_OUTPUT));
-//            if(imgFile.exists()) {
-//                imageSource = imgFile.getPath();
-//                Toast.makeText(AddDamageActivity.this, "The image was saved successfully.", Toast.LENGTH_SHORT);
-//            }
-//        }
-//        Intent navigateToAddDamageActivity = new Intent(AddDamageActivity.this, AddDamageActivity.class);
-//        navigateToAddDamageActivity.putExtra(Constants.EXTRA_CAR_ID, carId);
-//        startActivity(navigateToAddDamageActivity);
-//
-//    }
 
     @Override
     protected void onStart() {

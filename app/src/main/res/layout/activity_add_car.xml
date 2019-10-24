@@ -19,95 +19,87 @@
             <TextView
                 android:id="@+id/textViewAddCarBrand"
                 android:text="@string/add_car_brand"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <EditText
                 android:id="@+id/editTextAddCarBrand"
                 android:hint="@string/add_car_brand"
-                style="@style/PropertyLabel.EditText" />
+                style="@style/WrapContent.PropertyLabel.EditText" />
 
             <TextView
                 android:id="@+id/textViewAddCarModel"
                 android:text="@string/add_car_model"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <EditText
                 android:id="@+id/editTextAddCarModel"
                 android:hint="@string/add_car_model"
-                style="@style/PropertyLabel.EditText" />
+                style="@style/WrapContent.PropertyLabel.EditText" />
 
             <TextView
                 android:id="@+id/textViewAddCarColour"
                 android:text="@string/add_car_colour"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <EditText
                 android:id="@+id/editTextAddCarColour"
                 android:hint="@string/add_car_colour"
-                style="@style/PropertyLabel.EditText" />
+                style="@style/WrapContent.PropertyLabel.EditText" />
 
             <TextView
                 android:id="@+id/textViewAddCarDoorsCount"
                 android:text="@string/add_car_doors_count"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <EditText
                 android:id="@+id/editTextAddCarDoorsCount"
                 android:hint="@string/add_car_doors_count"
                 android:inputType="number"
-                style="@style/PropertyLabel.EditText"/>
+                style="@style/WrapContent.PropertyLabel.EditText"/>
 
             <TextView
                 android:id="@+id/textViewAddCarYearOfManufacture"
                 android:text="@string/add_car_year_of_manufacture"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/FullWidth">
 
                 <TextView
                     android:id="@+id/textViewAddCarShowSelectedYearOfManufacture"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/PropertyLabel" />
+                    style="@style/WrapContent.PropertyLabel" />
 
                 <Button
                     android:id="@+id/buttonAddCarSelectYearOfManufacture"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="@dimen/normal_margin"
                     android:padding="8dp"
                     android:text="@string/add_car_pick_year"
-                    android:background="@color/colorLightGrey"/>
+                    android:background="@color/colorLightGrey"
+                    style="@style/FillRemainingSpace"/>
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewAddCarCarOwner"
                 android:text="@string/add_car_car_owner"
-                style="@style/PropertyLabel"/>
+                style="@style/WrapContent.PropertyLabel"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/FullWidth">
 
                 <Spinner
                     android:id="@+id/spinnerAddCarSelectCarOwner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/normal_margin"/>
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    style="@style/FillRemainingSpace"/>
 
                 <Button
                     android:id="@+id/buttonAddCarAddCarOwner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="@string/add_car_add_new_owner"
-                    android:background="@color/colorLightGrey"/>
+                    android:background="@color/colorLightGrey"
+                    style="@style/FillRemainingSpace"/>
 
             </LinearLayout>
 

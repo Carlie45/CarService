@@ -6,48 +6,45 @@
     style="@style/MatchParent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        style="@style/WrapContent">
 
         <TextView
             android:text="@string/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_margin"
             android:textSize="@dimen/title_text_size"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            style="@style/WrapContent"/>
 
         <EditText
             android:id="@+id/editTextRegisterEmail"
             android:inputType="textEmailAddress"
             android:hint="@string/register_email"
             android:textColorHint="@color/colorWhite"
-            style="@style/LoginPageText"/>
+            style="@style/WrapContent.LoginPageText"/>
 
         <EditText
             android:id="@+id/editTextRegisterPassword"
             android:inputType="textPassword"
             android:hint="@string/register_password"
             android:textColorHint="@color/colorWhite"
-            style="@style/LoginPageText"/>
+            style="@style/WrapContent.LoginPageText"/>
 
         <EditText
             android:id="@+id/editTextRegisterConfirmPassword"
             android:inputType="textPassword"
             android:hint="@string/register_confirm_password"
             android:textColorHint="@color/colorWhite"
-            style="@style/LoginPageText"/>
+            style="@style/WrapContent.LoginPageText"/>
 
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/register"
             android:background="@color/colorTeal"
-            android:layout_marginTop="@dimen/normal_margin" />
+            android:layout_marginTop="@dimen/normal_margin"
+            style="@style/FullWidth"/>
 
     </LinearLayout>
 

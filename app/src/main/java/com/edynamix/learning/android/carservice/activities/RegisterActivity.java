@@ -35,6 +35,7 @@ public class RegisterActivity extends Activity {
         final EditText editTextRegisterConfirmPassword = (EditText) findViewById(R.id.editTextRegisterConfirmPassword);
         final Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
 
+        // Register button
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

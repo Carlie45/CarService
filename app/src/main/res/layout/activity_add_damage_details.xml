@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.AddDamageDetailsActivity">
+    tools:context=".activities.AddDamageDetailsActivity"
+    style="@style/MatchParent">
 
     <include layout="@layout/layout_toolbar"/>
 
     <EditText
         android:id="@+id/editTextAddDamageDetailsDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/appToolbar"
         android:layout_margin="@dimen/normal_margin"
         android:hint="@string/add_damage_details_description_hint"
-        android:textColorHint="@color/colorGrey"/>
+        android:textColorHint="@color/colorGrey"
+        style="@style/FullWidth"/>
 
     <ImageView
         android:id="@+id/imageViewAddDamageDetailsPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/editTextAddDamageDetailsDescription"
-        android:layout_above="@id/buttonAddDamageDetailsTakePhoto"/>
+        android:layout_above="@id/buttonAddDamageDetailsTakePhoto"
+        style="@style/MatchParent"/>
 
     <Button
         android:id="@+id/buttonAddDamageDetailsTakePhoto"
@@ -39,13 +36,13 @@
             android:id="@+id/buttonAddDamageDetailsCancel"
             android:layout_alignParentLeft="true"
             android:text="@string/add_damage_details_cancel"
-            style="@style/FillRemainingSpaceButton"/>
+            style="@style/FillRemainingSpace"/>
 
         <Button
             android:id="@+id/buttonAddDamageDetailsAdd"
             android:layout_alignParentRight="true"
             android:text="@string/add_damage_details_add"
-            style="@style/FillRemainingSpaceButton"/>
+            style="@style/FillRemainingSpace"/>
 
     </LinearLayout>
 

@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ListDamagesActivity">
+    tools:context=".activities.ListDamagesActivity"
+    style="@style/MatchParent">
 
     <include layout="@layout/layout_toolbar"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutListDamagesButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/appToolbar"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/FullWidth">
 
         <Button
             android:id="@+id/buttonListDamagesRemoveAll"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
-            android:text="@string/list_damages_remove_all"/>
+            android:text="@string/list_damages_remove_all"
+            style="@style/FillRemainingSpace"/>
 
         <Button
             android:id="@+id/buttonListDamagesAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
-            android:text="@string/list_damages_add_new"/>
+            android:text="@string/list_damages_add_new"
+            style="@style/FillRemainingSpace"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutCarDetailsDamagesContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/linearLayoutListDamagesButtons"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/MatchParent">
+
+        <TextView
+            android:id="@+id/textViewListDamagesNoImages"
+            android:gravity="center"
+            android:text="@string/car_details_no_damage_images"
+            android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorBlack"
+            android:visibility="gone"
+            style="@style/MatchParent"/>
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewListDamagesGallery"
             android:layout_width="550dp"
             android:layout_height="wrap_content"
             android:fillViewport="true">
 
             <LinearLayout
                 android:id="@+id/linearLayoutListDamages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                style="@style/FullWidth">
 
             </LinearLayout>
 

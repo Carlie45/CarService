@@ -5,7 +5,6 @@ import android.content.Context;
 import com.edynamix.learning.android.carservice.App;
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.exceptions.LoginFailedException;
-import com.edynamix.learning.android.carservice.exceptions.NoSuchUserException;
 import com.edynamix.learning.android.carservice.models.User;
 import com.edynamix.learning.android.carservice.storages.UsersStorage;
 
@@ -24,7 +23,7 @@ public class LoginDataValidator {
         User foundUser = usersStorage.getUserForEmail(email);
 
         if (foundUser == null) {
-            throw new NoSuchUserException(App.getRes().getString(R.string.login_no_such_user));
+            throw new LoginFailedException(App.getRes().getString(R.string.login_no_such_user));
         }
 
         try {

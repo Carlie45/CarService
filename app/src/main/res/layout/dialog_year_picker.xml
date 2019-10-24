@@ -18,13 +18,13 @@
             android:id="@+id/buttonYearPickerDialogCancel"
             android:layout_alignParentLeft="true"
             android:text="@string/add_car_cancel"
-            style="@style/FillRemainingSpaceButton"/>
+            style="@style/FillRemainingSpace"/>
 
         <Button
             android:id="@+id/buttonYearPickerDialogSelect"
             android:layout_alignParentRight="true"
             android:text="@string/add_car_select"
-            style="@style/FillRemainingSpaceButton"/>
+            style="@style/FillRemainingSpace"/>
 
     </LinearLayout>
 

@@ -60,6 +60,7 @@ public class AddCarOwnerActivity extends Activity {
         final EditText editTextAddCarOwnerPhone = (EditText) findViewById(R.id.editTextAddCarOwnerPhone);
         final EditText editTextAddCarOwnerEmail = (EditText) findViewById(R.id.editTextAddCarOwnerEmail);
 
+        // Button to add new owner
         Button buttonAddCarOwnerCreate = (Button) findViewById(R.id.buttonAddCarOwnerCreate);
         buttonAddCarOwnerCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,7 @@ public class AddCarOwnerActivity extends Activity {
                 String phone = editTextAddCarOwnerPhone.getText() != null ? editTextAddCarOwnerPhone.getText().toString() : null;
                 String email = editTextAddCarOwnerEmail.getText() != null ? editTextAddCarOwnerEmail.getText().toString() : null;
 
+                // Persist data to storage
                 CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarOwnerActivity.this);
                 CarOwner newCarOwner = new CarOwnerBuilder()
                         .setFirstName(firstName)
@@ -83,6 +85,7 @@ public class AddCarOwnerActivity extends Activity {
                 carOwnersStorage.addCarOwner(newCarOwner);
                 Toast.makeText(AddCarOwnerActivity.this, App.getRes().getString(R.string.add_car_car_owner_saved_successfully_message), Toast.LENGTH_LONG).show();
 
+                // Return to previous activity.
                 finish();
             }
         });

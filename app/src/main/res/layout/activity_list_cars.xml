@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ListCarsActivity">
+    tools:context=".activities.ListCarsActivity"
+    style="@style/MatchParent">
 
     <include layout="@layout/layout_toolbar"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutAddButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/appToolbar"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/FullWidth">
 
         <Button
             android:id="@+id/buttonListCarsAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
-            android:text="@string/list_cars_add_car"/>
+            android:text="@string/list_cars_add_car"
+            style="@style/FillRemainingSpace"/>
 
         <Button
             android:id="@+id/buttonListCarsAddCarOwner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
-            android:text="@string/list_cars_add_car_owner"/>
+            android:text="@string/list_cars_add_car_owner"
+            style="@style/FillRemainingSpace"/>
 
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/linearLayoutAddButtons">
+        android:layout_below="@id/linearLayoutAddButtons"
+        style="@style/MatchParent">
 
         <LinearLayout
             android:id="@+id/linearLayoutListCars"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            style="@style/FullWidth">
 
         </LinearLayout>
 

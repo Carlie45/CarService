@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,29 +58,40 @@ public class CarDetailsView extends LinearLayout {
         TextView textViewCarDetailsAddedByUser = (TextView) findViewById(R.id.textViewCarDetailsAddedByUser);
         textViewCarDetailsAddedByUser.setText(getResources().getString(R.string.car_details_added_by_user) + ": " + car.addedByUser);
 
+        // Init the damage images gallery
         LinearLayout linearLayoutCarDetailsDamageGallery = (LinearLayout) findViewById(R.id.linearLayoutCarDetailsDamageGallery);
         DamagesStorage damagesStorage = new DamagesStorage(context);
-        for (Integer damageId : car.damageIdsList) {
-            Damage damage = damagesStorage.getDamageWithId(damageId);
-            ImageView imageView = new ImageView(context);
-            if (damage != null && damage.imageSource != null && damage.imageSource.length() != 0) {
-                Drawable drawablePhoto = Drawable.createFromPath(damage.imageSource);
-                imageView.setImageDrawable(drawablePhoto);
-            } else {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_placeholder));
+        if (car.damageIdsList.size() == 0) {
+            TextView textViewCarDetailsNoImages = (TextView) findViewById(R.id.textViewCarDetailsNoImages);
+            textViewCarDetailsNoImages.setVisibility(VISIBLE);
+
+            HorizontalScrollView horizontalScrollViewCarDetailsGallery = (HorizontalScrollView) findViewById(R.id.horizontalScrollViewCarDetailsGallery);
+            horizontalScrollViewCarDetailsGallery.setVisibility(GONE);
+        } else {
+            for (Integer damageId : car.damageIdsList) {
+                Damage damage = damagesStorage.getDamageWithId(damageId);
+                ImageView imageView = new ImageView(context);
+                if (damage != null && damage.imageSource != null && damage.imageSource.length() != 0) {
+                    Drawable drawablePhoto = Drawable.createFromPath(damage.imageSource);
+                    imageView.setImageDrawable(drawablePhoto);
+                } else {
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.img_placeholder));
+                }
+
+                imageView.setAdjustViewBounds(true);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+                int width = (int) (40 * context.getResources().getDisplayMetrics().density);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(10,10,10,10);
+                imageView.setLayoutParams(params);
+                linearLayoutCarDetailsDamageGallery.addView(imageView);
             }
-
-            imageView.setAdjustViewBounds(true);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
-            int width = (int) (40 * context.getResources().getDisplayMetrics().density);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(10,10,10,10);
-            imageView.setLayoutParams(params);
-            linearLayoutCarDetailsDamageGallery.addView(imageView);
         }
 
         LinearLayout linearLayoutCarDetailsDamagesContainer = (LinearLayout) findViewById(R.id.linearLayoutCarDetailsDamagesContainer);
+
+        // Check all damages button
         Button buttonCarDetailsCheckAllDamages = new Button(context);
         buttonCarDetailsCheckAllDamages.setTag(car.id);
         LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);

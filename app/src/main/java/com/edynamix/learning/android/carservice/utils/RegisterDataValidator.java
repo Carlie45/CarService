@@ -7,9 +7,8 @@ import android.preference.PreferenceManager;
 
 import com.edynamix.learning.android.carservice.App;
 import com.edynamix.learning.android.carservice.R;
-import com.edynamix.learning.android.carservice.exceptions.EmailAlreadyRegisteredException;
 import com.edynamix.learning.android.carservice.exceptions.IllegalCredentialsException;
-import com.edynamix.learning.android.carservice.exceptions.NotMatchingCredentialsException;
+import com.edynamix.learning.android.carservice.exceptions.RegistrationFailedException;
 import com.edynamix.learning.android.carservice.storages.UsersStorage;
 
 import java.util.regex.Pattern;
@@ -36,7 +35,7 @@ public class RegisterDataValidator {
      * See Constants.MAX_EMAIL_LENGTH.
      * @param email - required to be not null
      */
-    public void validateEmail(String email) throws IllegalCredentialsException, EmailAlreadyRegisteredException {
+    public void validateEmail(String email) throws IllegalCredentialsException, RegistrationFailedException {
         if (email.length() > Constants.MAX_EMAIL_LENGTH) {
             throw new IllegalCredentialsException(appResources.getString(R.string.register_email_too_long)
                     + " " + Constants.MAX_EMAIL_LENGTH);
@@ -51,7 +50,7 @@ public class RegisterDataValidator {
         UsersStorage usersStorage = new UsersStorage(context);
         boolean userAlreadyExists =  usersStorage.hasUserWithEmail(email);
         if (userAlreadyExists) {
-            throw new EmailAlreadyRegisteredException(appResources.getString(R.string.register_email_already_registered));
+            throw new RegistrationFailedException(appResources.getString(R.string.register_email_already_registered));
         }
     }
 
@@ -109,10 +108,10 @@ public class RegisterDataValidator {
     }
 
     public void validatePasswordAndConfirmPasswordMatch(String password, String confirmPassword)
-            throws NotMatchingCredentialsException {
+            throws RegistrationFailedException {
 
         if (!password.equals(confirmPassword)) {
-            throw new NotMatchingCredentialsException(appResources.getString(R.string.register_passwords_do_not_match));
+            throw new RegistrationFailedException(appResources.getString(R.string.register_passwords_do_not_match));
         }
     }
 }

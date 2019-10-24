@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/textViewToolbarLoggedInEmail"
         android:layout_alignRight="@id/buttonToolbarLogout"
-        style="@style/ToolbarEmailTextView" />
+        style="@style/WrapContent.ToolbarEmailTextView" />
 
     <Button
         android:id="@+id/buttonToolbarLogout"

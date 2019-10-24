@@ -142,37 +142,37 @@ public class AddDamageDetailsActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                photoUri = data.getData();
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_CANCELED) {
+                isPictureTaken = false;
+                fileToStoreThePicture = null;
+                return;
+            } else if (resultCode == RESULT_OK) {
+                try {
+                    photoUri = data.getData();
 
-                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                bitmapOptions.inSampleSize = 8;
-                InputStream input = getContentResolver().openInputStream(photoUri);
-                Bitmap imageBitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
-                input.close();
+                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    bitmapOptions.inSampleSize = 8;
+                    InputStream input = getContentResolver().openInputStream(photoUri);
+                    Bitmap imageBitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+                    input.close();
 
+                    FileOutputStream out = new FileOutputStream(fileToStoreThePicture);
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, out);
+                    out.flush();
+                    out.close();
 
-//                ParcelFileDescriptor parcelFileDescriptor =
-//                        getContentResolver().openFileDescriptor(photoUri, "r");
-//                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-//                Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-//                parcelFileDescriptor.close();
-                FileOutputStream out = new FileOutputStream(fileToStoreThePicture);
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, out);
-                out.flush();
-                out.close();
+                    // ImageView to display the taken photo.
+                    imageViewAddDamageDetailsPhoto = (ImageView) findViewById(R.id.imageViewAddDamageDetailsPhoto);
+                    imageViewAddDamageDetailsPhoto.setImageBitmap(imageBitmap);
 
-                // ImageView to display the taken photo.
-                imageViewAddDamageDetailsPhoto = (ImageView) findViewById(R.id.imageViewAddDamageDetailsPhoto);
-                imageViewAddDamageDetailsPhoto.setImageBitmap(imageBitmap);
-
-                // Remove the take photo button as it is not needed anymore.
-                buttonAddDamageDetailsTakePhoto.setVisibility(View.GONE);
-            } catch (IOException ioe) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddDamageDetailsActivity.this);
-                new ErrorDialog().createDialog(alertDialogBuilder,
-                        "An error occurred while processing the photo. Cause: " + ioe.getMessage());
+                    // Remove the take photo button as it is not needed anymore.
+                    buttonAddDamageDetailsTakePhoto.setVisibility(View.GONE);
+                } catch (IOException ioe) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddDamageDetailsActivity.this);
+                    new ErrorDialog().createDialog(alertDialogBuilder,
+                            "An error occurred while processing the photo. Cause: " + ioe.getMessage());
+                }
             }
         }
     }

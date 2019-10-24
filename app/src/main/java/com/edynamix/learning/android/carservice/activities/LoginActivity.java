@@ -33,6 +33,7 @@ public class LoginActivity extends Activity {
         final EditText editTextLoginPassword = (EditText) findViewById(R.id.editTextLoginPassword);
         final Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
 
+        // Login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +54,7 @@ public class LoginActivity extends Activity {
             }
         });
 
+        // Set link for registration
         final TextView textViewLoginNewHere = (TextView) findViewById(R.id.textViewLoginNewHere);
         textViewLoginNewHere.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         textViewLoginNewHere.setOnClickListener(new View.OnClickListener() {

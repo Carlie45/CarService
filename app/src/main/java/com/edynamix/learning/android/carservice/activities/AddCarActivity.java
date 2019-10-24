@@ -83,6 +83,7 @@ public class AddCarActivity extends Activity {
         final TextView textViewAddCarShowSelectedYearOfManufacture = (TextView) findViewById(R.id.textViewAddCarShowSelectedYearOfManufacture);
         displayCurrentYear(textViewAddCarShowSelectedYearOfManufacture);
 
+        // Buton select year of manufacture
         Button buttonAddCarSelectYearOfManufacture = (Button) findViewById(R.id.buttonAddCarSelectYearOfManufacture);
         buttonAddCarSelectYearOfManufacture.setOnClickListener(new View.OnClickListener() {
             @Override
