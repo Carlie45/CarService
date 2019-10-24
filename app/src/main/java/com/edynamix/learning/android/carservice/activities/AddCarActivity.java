@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edynamix.learning.android.carservice.App;
-import com.edynamix.learning.android.carservice.OnLoggedInUserChangedListener;
+import com.edynamix.learning.android.carservice.listeners.OnLoggedInUserChangedListener;
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
 import com.edynamix.learning.android.carservice.models.Car;
