@@ -14,17 +14,15 @@
 
         <Button
             android:id="@+id/buttonListDamagesRemoveAll"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/list_damages_remove_all"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
         <Button
             android:id="@+id/buttonListDamagesAdd"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/list_damages_add_new"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
     </LinearLayout>
 

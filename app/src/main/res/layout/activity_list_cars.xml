@@ -14,17 +14,15 @@
 
         <Button
             android:id="@+id/buttonListCarsAdd"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/list_cars_add_car"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
         <Button
             android:id="@+id/buttonListCarsAddCarOwner"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/list_cars_add_car_owner"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
     </LinearLayout>
 

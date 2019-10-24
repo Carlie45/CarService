@@ -74,11 +74,10 @@
 
                 <Button
                     android:id="@+id/buttonAddCarSelectYearOfManufacture"
-                    android:layout_margin="@dimen/normal_margin"
                     android:padding="8dp"
                     android:text="@string/add_car_pick_year"
                     android:background="@color/colorLightGrey"
-                    style="@style/FillRemainingSpace"/>
+                    style="@style/FillRemainingSpace.NormalMargin"/>
 
             </LinearLayout>
 

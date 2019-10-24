@@ -15,17 +15,15 @@
 
         <Button
             android:id="@+id/buttonAddDamageRemoveAllDamages"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/add_damage_remove_all"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
         <Button
             android:id="@+id/buttonAddDamageCompleteChanges"
-            android:layout_margin="@dimen/half_normal_margin"
             android:background="@color/colorLightBlue"
             android:text="@string/add_damage_complete_changes"
-            style="@style/FillRemainingSpace"/>
+            style="@style/FillRemainingSpace.HalfNormalMargin"/>
 
     </LinearLayout>
 

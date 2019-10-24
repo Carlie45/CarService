@@ -1,50 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_margin="@dimen/normal_margin"
-    style="@style/FullWidth">
+    style="@style/FullWidth.NormalMargin">
 
     <TextView
         android:id="@+id/textViewCarDetailsBrandAndModel"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/normal_text_size"
         android:textColor="@color/colorBlack"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.NormalTextSize"/>
 
     <TextView
         android:id="@+id/textViewCarDetailsColour"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/colorDarkGrey"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.SmallTextSize.DarkGrey"/>
 
     <TextView
         android:id="@+id/textViewCarDetailsDoorsCount"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/colorDarkGrey"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.SmallTextSize.DarkGrey"/>
 
     <TextView
         android:id="@+id/textViewCarDetailsYearOfManufacture"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/colorDarkGrey"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.SmallTextSize.DarkGrey"/>
 
     <TextView
         android:id="@+id/textViewCarDetailsCarOwner"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/colorDarkGrey"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.SmallTextSize.DarkGrey"/>
 
     <TextView
         android:id="@+id/textViewCarDetailsAddedByUser"
-        android:layout_margin="@dimen/normal_margin"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/colorDarkGrey"
-        style="@style/FullWidth"/>
+        style="@style/FullWidth.NormalMargin.SmallTextSize.DarkGrey"/>
 
 
     <LinearLayout
