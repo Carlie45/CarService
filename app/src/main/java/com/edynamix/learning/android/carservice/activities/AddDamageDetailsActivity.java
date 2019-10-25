@@ -205,6 +205,12 @@ public class AddDamageDetailsActivity extends Activity {
                     } else {
                         Bundle extras = data.getExtras();
                         imageBitmap = (Bitmap) extras.get("data");
+                        // some ugly way to adjust the photo size... already out of ideas
+                        imageBitmap = Bitmap.createScaledBitmap(
+                                imageBitmap,
+                                (int) (imageBitmap.getWidth() * 2.8),
+                                (int) (imageBitmap.getHeight() * 2.8),
+                                true);
                     }
 
                     // Save the photo to a file.
