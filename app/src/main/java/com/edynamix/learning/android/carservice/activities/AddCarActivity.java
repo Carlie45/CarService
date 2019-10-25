@@ -37,12 +37,10 @@ public class AddCarActivity extends Activity {
 
     private int yearOfManufacture;
     private int carOwnerId;
-    private List<CarOwner> carOwners;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_car);
 
         // Toolbar back button
@@ -140,11 +138,25 @@ public class AddCarActivity extends Activity {
         buttonAddCarCreateNewCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String brand = editTextAddCarBrand.getText() != null ? editTextAddCarBrand.getText().toString() : null;
-                String model = editTextAddCarModel.getText() != null ? editTextAddCarModel.getText().toString() : null;
-                String colour = editTextAddCarColour.getText() != null ? editTextAddCarColour.getText().toString() : null;
-                int doorsCount = editTextAddCarDoorsCount.getText() != null && editTextAddCarDoorsCount.getText().length() > 0 ?
-                        Integer.parseInt(editTextAddCarDoorsCount.getText().toString()) : 0;
+                String brand = null;
+                if (editTextAddCarBrand.getText() != null) {
+                    brand = editTextAddCarBrand.getText().toString();
+                }
+
+                String model = null;
+                if (editTextAddCarModel.getText() != null) {
+                    model = editTextAddCarModel.getText().toString();
+                }
+
+                String colour = null;
+                if (editTextAddCarColour.getText() != null) {
+                    colour = editTextAddCarColour.getText().toString();
+                }
+
+                int doorsCount = 0;
+                if (editTextAddCarDoorsCount.getText() != null && editTextAddCarDoorsCount.getText().length() > 0) {
+                    doorsCount = Integer.parseInt(editTextAddCarDoorsCount.getText().toString());
+                }
 
                 CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarActivity.this);
                 boolean carOwnerExistsInStorage = carOwnersStorage.isCarOwnerWithIdInTheStorage(carOwnerId);
@@ -181,7 +193,7 @@ public class AddCarActivity extends Activity {
         super.onStart();
 
         CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarActivity.this);
-        carOwners = carOwnersStorage.getCarOwners();
+        List<CarOwner> carOwners = carOwnersStorage.getCarOwners();
 
         // Spinner for car owner
         Spinner spinnerAddCarSelectCarOwner = (Spinner) findViewById(R.id.spinnerAddCarSelectCarOwner);

@@ -24,7 +24,6 @@ public class AddCarOwnerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_car_owner);
 
         // Toolbar back button
@@ -65,11 +64,30 @@ public class AddCarOwnerActivity extends Activity {
         buttonAddCarOwnerCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = editTextAddCarOwnerFirstName.getText() != null ? editTextAddCarOwnerFirstName.getText().toString() : null;
-                String lastName = editTextAddCarOwnerLastName.getText() != null ? editTextAddCarOwnerLastName.getText().toString() : null;
-                String address = editTextAddCarOwnerAddress.getText() != null ? editTextAddCarOwnerAddress.getText().toString() : null;
-                String phone = editTextAddCarOwnerPhone.getText() != null ? editTextAddCarOwnerPhone.getText().toString() : null;
-                String email = editTextAddCarOwnerEmail.getText() != null ? editTextAddCarOwnerEmail.getText().toString() : null;
+                String firstName = null;
+                if (editTextAddCarOwnerFirstName.getText() != null) {
+                    firstName = editTextAddCarOwnerFirstName.getText().toString();
+                }
+
+                String lastName = null;
+                if (editTextAddCarOwnerLastName.getText() != null) {
+                    lastName = editTextAddCarOwnerLastName.getText().toString();
+                }
+
+                String address = null;
+                if (editTextAddCarOwnerAddress.getText() != null) {
+                    address = editTextAddCarOwnerAddress.getText().toString();
+                }
+
+                String phone = null;
+                if (editTextAddCarOwnerPhone.getText() != null) {
+                    phone = editTextAddCarOwnerPhone.getText().toString();
+                }
+
+                String email = null;
+                if (editTextAddCarOwnerEmail.getText() != null) {
+                    email = editTextAddCarOwnerEmail.getText().toString();
+                }
 
                 // Persist data to storage
                 CarOwnersStorage carOwnersStorage = new CarOwnersStorage(AddCarOwnerActivity.this);

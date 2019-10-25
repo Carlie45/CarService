@@ -2,7 +2,9 @@ package com.edynamix.learning.android.carservice.dialogs;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.edynamix.learning.android.carservice.App;
 import com.edynamix.learning.android.carservice.R;
@@ -31,10 +33,12 @@ public class ConfirmDialog {
         Button neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
         neutralButton.setBackgroundColor(App.getRes().getColor(R.color.colorLightGrey));
         neutralButton.setTextColor(App.getRes().getColor(R.color.colorBlack));
+        neutralButton.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setBackgroundColor(App.getRes().getColor(R.color.colorTeal));
         positiveButton.setTextColor(App.getRes().getColor(R.color.colorBlack));
+        positiveButton.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         return alertDialog;
     }

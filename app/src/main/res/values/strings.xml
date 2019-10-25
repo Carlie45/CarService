@@ -82,16 +82,19 @@
     <!-- List damages -->
     <string name="list_damages_add_new">Add New Damage</string>
     <string name="list_damages_remove_all">Remove All Damages</string>
+    <string name="list_damages_invalid_car">Invalid car.</string>
 
     <!-- Add damage -->
     <string name="add_damage_remove_all">Remove All Damages</string>
     <string name="add_damage_complete_changes">Complete Changes</string>
+    <string name="add_damage_invalid_car">Invalid car.</string>
 
     <!-- Add damage details -->
     <string name="add_damage_details_description_hint">Add description for the damage</string>
     <string name="add_damage_details_cancel">Cancel</string>
     <string name="add_damage_details_add">Add</string>
     <string name="add_damage_details_take_photo">Take Photo</string>
+    <string name="add_damage_details_invalid_car">Invalid car.</string>
 
     <!-- Confirm dialog -->
     <string name="confirm_dialog_title">Please confirm the delete action</string>

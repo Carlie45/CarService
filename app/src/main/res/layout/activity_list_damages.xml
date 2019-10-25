@@ -29,6 +29,7 @@
     <LinearLayout
         android:id="@+id/linearLayoutCarDetailsDamagesContainer"
         android:layout_below="@id/linearLayoutListDamagesButtons"
+        android:gravity="center"
         android:orientation="horizontal"
         style="@style/MatchParent">
 

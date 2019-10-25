@@ -1,13 +1,15 @@
 package com.edynamix.learning.android.carservice.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -19,6 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
@@ -32,6 +37,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class AddDamageDetailsActivity extends Activity {
 
@@ -40,19 +46,18 @@ public class AddDamageDetailsActivity extends Activity {
     private float yPos;
 
     private File fileToStoreThePicture;
-    private Uri photoUri;
 
     private Button buttonAddDamageDetailsTakePhoto;
     private ImageView imageViewAddDamageDetailsPhoto;
 
     private boolean isPictureTaken = false;
 
+    private static final int REQUEST_GRANT_CAMERA_PERMISSION = 162;
     private static final int REQUEST_IMAGE_CAPTURE = 158;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_damage_details);
 
         carId = getIntent().getExtras().getInt(Constants.EXTRA_CAR_ID);
@@ -93,6 +98,17 @@ public class AddDamageDetailsActivity extends Activity {
         buttonAddDamageDetailsTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    // Check for permission
+                    if (ContextCompat.checkSelfPermission(
+                            AddDamageDetailsActivity.this,
+                            Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                        // Permission is not granted. Ask for permission.
+                        AddDamageDetailsActivity.this.requestPermissions(
+                                new String[] {Manifest.permission.CAMERA},
+                                REQUEST_GRANT_CAMERA_PERMISSION);
+                    }
+                }
                 takePicture();
             }
         });
@@ -119,18 +135,30 @@ public class AddDamageDetailsActivity extends Activity {
             public void onClick(View v) {
                 CarsStorage carsStorage = new CarsStorage(AddDamageDetailsActivity.this);
                 Car car = carsStorage.getCarWithId(carId);
+                // If the car does not exists, show an error dialog. Nothing more to do.
+                if (car == null) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddDamageDetailsActivity.this);
+                    new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.add_damage_details_invalid_car));
+                    return;
+                }
 
                 Editable editTextAddDamageDetailsDescriptionText = editTextAddDamageDetailsDescription.getText();
-                String damageDescription = editTextAddDamageDetailsDescriptionText != null ?
-                        editTextAddDamageDetailsDescriptionText.toString() : Constants.EMPTY_VALUE;
+                String damageDescription = Constants.EMPTY_VALUE;
+                if (editTextAddDamageDetailsDescriptionText != null) {
+                    damageDescription = editTextAddDamageDetailsDescriptionText.toString();
+                }
 
                 String imageSource = Constants.EMPTY_VALUE;
                 if (fileToStoreThePicture != null) {
                     imageSource = fileToStoreThePicture.getAbsolutePath();
                 }
+
                 DamagesStorage damagesStorage = new DamagesStorage(AddDamageDetailsActivity.this);
                 Damage damage = new Damage(damagesStorage.getNextDamageId(), imageSource, damageDescription, xPos, yPos);
                 damagesStorage.addDamage(damage);
+                if (car.damageIdsList == null) {
+                    car.damageIdsList = new ArrayList<>();
+                }
                 car.damageIdsList.add(damage.id);
                 carsStorage.updateCar(car.id, car);
 
@@ -140,23 +168,46 @@ public class AddDamageDetailsActivity extends Activity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_GRANT_CAMERA_PERMISSION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    takePicture();
+                } else {
+                    Toast.makeText(AddDamageDetailsActivity.this,
+                            "You have revoked the camera permission, so you are not able to proceed with this action.",
+                            Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_CANCELED) {
                 isPictureTaken = false;
                 fileToStoreThePicture = null;
-                return;
             } else if (resultCode == RESULT_OK) {
                 try {
-                    photoUri = data.getData();
+                    Bitmap imageBitmap = null;
 
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                    bitmapOptions.inSampleSize = 8;
-                    InputStream input = getContentResolver().openInputStream(photoUri);
-                    Bitmap imageBitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
-                    input.close();
+                    Uri photoUri = data.getData(); // For older devices.
+                    if (photoUri != null) {
+                        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                        bitmapOptions.inSampleSize = 8;
+                        InputStream input = getContentResolver().openInputStream(photoUri);
+                        imageBitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+                        input.close();
+                    } else {
+                        Bundle extras = data.getExtras();
+                        imageBitmap = (Bitmap) extras.get("data");
+                    }
 
+                    // Save the photo to a file.
                     FileOutputStream out = new FileOutputStream(fileToStoreThePicture);
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, out);
                     out.flush();
@@ -234,8 +285,7 @@ public class AddDamageDetailsActivity extends Activity {
         String pictureName = "damage" + "_" + carId + "_" + damagesStorage.getNextDamageId() + ".png";
 
         File imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "/");
-        File file = new File(imagePath, pictureName);
 
-        return file;
+        return new File(imagePath, pictureName);
     }
 }

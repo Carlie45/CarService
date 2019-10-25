@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.Nullable;
+
 import com.edynamix.learning.android.carservice.models.User;
 import com.edynamix.learning.android.carservice.utils.Constants;
 import com.google.gson.Gson;
@@ -41,6 +43,7 @@ public class UsersStorage {
         return false;
     }
 
+    @Nullable
     public User getUserForEmail(String email) {
         for (User user : userList) {
             if (user.email.equals(email)) {

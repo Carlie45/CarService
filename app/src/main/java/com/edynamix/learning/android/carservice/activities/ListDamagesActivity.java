@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.edynamix.learning.android.carservice.R;
 import com.edynamix.learning.android.carservice.dialogs.ConfirmDialog;
+import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.Damage;
 import com.edynamix.learning.android.carservice.storages.CarsStorage;
@@ -23,20 +24,22 @@ import com.edynamix.learning.android.carservice.utils.Constants;
 import com.edynamix.learning.android.carservice.views.DamageDetailsView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class ListDamagesActivity extends Activity {
 
     private int carId;
+    private Car car;
+    private CarsStorage carsStorage;
     private LinearLayout linearLayoutListDamages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_list_damages);
 
         carId = getIntent().getExtras().getInt(Constants.EXTRA_CAR_ID);
-        final CarsStorage carsStorage = new CarsStorage(ListDamagesActivity.this);
+        carsStorage = new CarsStorage(ListDamagesActivity.this);
 
         // Toolbar back button
         Button buttonToolbarBack = (Button) findViewById(R.id.buttonToolbarBack);
@@ -80,9 +83,18 @@ public class ListDamagesActivity extends Activity {
         buttonListDamagesRemoveAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = carsStorage.getCarWithId(carId);
-                for (Integer damageId : car.damageIdsList) {
-                    deleteDamageWithId(damageId);
+                car = carsStorage.getCarWithId(carId);
+                // If the car does not exists, show an error dialog. Nothing more to do.
+                if (car == null) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListDamagesActivity.this);
+                    new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.list_damages_invalid_car));
+                    return;
+                } else {
+                    if (car.damageIdsList != null) {
+                        for (Integer damageId : car.damageIdsList) {
+                            deleteDamageWithId(damageId);
+                        }
+                    }
                 }
             }
         });
@@ -91,23 +103,39 @@ public class ListDamagesActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        LinearLayout linearLayoutListDamages = (LinearLayout) findViewById(R.id.linearLayoutListDamages);
+        linearLayoutListDamages = (LinearLayout) findViewById(R.id.linearLayoutListDamages);
         linearLayoutListDamages.removeAllViews();
-        CarsStorage carsStorage = new CarsStorage(ListDamagesActivity.this);
-        Car car = carsStorage.getCarWithId(carId);
+
+        carsStorage = new CarsStorage(ListDamagesActivity.this);
+        car = carsStorage.getCarWithId(carId);
+        // If the car does not exists, show an error dialog. Nothing more to do.
+        if (car == null) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListDamagesActivity.this);
+            new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.list_damages_invalid_car));
+            return;
+        }
         DamagesStorage damagesStorage = new DamagesStorage(ListDamagesActivity.this);
         Damage damage;
 
-        if (car.damageIdsList.size() == 0) {
-            TextView textViewListDamagesNoImages = (TextView) findViewById(R.id.textViewListDamagesNoImages);
-            textViewListDamagesNoImages.setVisibility(View.VISIBLE);
+        if (car.damageIdsList == null) {
+            car.damageIdsList = new ArrayList<>();
+        }
 
-            HorizontalScrollView horizontalScrollViewListDamagesGallery =
-                    (HorizontalScrollView) findViewById(R.id.horizontalScrollViewListDamagesGallery);
+        TextView textViewListDamagesNoImages = (TextView) findViewById(R.id.textViewListDamagesNoImages);
+        HorizontalScrollView horizontalScrollViewListDamagesGallery =
+                (HorizontalScrollView) findViewById(R.id.horizontalScrollViewListDamagesGallery);
+        if (car.damageIdsList.size() == 0) {
+            textViewListDamagesNoImages.setVisibility(View.VISIBLE);
             horizontalScrollViewListDamagesGallery.setVisibility(View.GONE);
         } else {
+            textViewListDamagesNoImages.setVisibility(View.GONE);
+            horizontalScrollViewListDamagesGallery.setVisibility(View.VISIBLE);
+
             for (final Integer damageId : car.damageIdsList) {
                 damage = damagesStorage.getDamageWithId(damageId);
+                if (damage == null) {
+                    continue;
+                }
                 DamageDetailsView damageDetailsView = new DamageDetailsView(ListDamagesActivity.this, damage);
                 damageDetailsView.setTag(damage.id);
                 damageDetailsView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -144,21 +172,33 @@ public class ListDamagesActivity extends Activity {
     }
 
     private void deleteDamageWithId(int damageId) {
-        CarsStorage carsStorage = new CarsStorage(ListDamagesActivity.this);
-        Car car = carsStorage.getCarWithId(carId);
+        carsStorage = new CarsStorage(ListDamagesActivity.this);
+        car = carsStorage.getCarWithId(carId);
+        // If the car does not exists, show an error dialog. Nothing more to do.
+        if (car == null) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ListDamagesActivity.this);
+            new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.list_damages_invalid_car));
+            return;
+        }
 
         DamagesStorage damagesStorage = new DamagesStorage(ListDamagesActivity.this);
         Damage damage = damagesStorage.getDamageWithId(damageId);
+        if (damage == null) {
+            // Nothing to delete.
+            return;
+        }
 
-        String photoSrc = damage.imageSource;
-        File fileToDelete = new File(photoSrc);
+        File fileToDelete = new File(damage.imageSource);
         if (fileToDelete.exists()) {
             fileToDelete.delete();
         }
 
         removeLinearLayoutForDamage(damageId);
         damagesStorage.deleteDamageWithId(damageId);
-        car.damageIdsList.remove((Integer) damage.id);
+        if (car.damageIdsList != null) {
+            car.damageIdsList.remove((Integer) damage.id);
+        }
+
         carsStorage.updateCar(car.id, car);
     }
 

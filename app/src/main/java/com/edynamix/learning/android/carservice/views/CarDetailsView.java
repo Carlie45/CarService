@@ -70,6 +70,9 @@ public class CarDetailsView extends LinearLayout {
         } else {
             for (Integer damageId : car.damageIdsList) {
                 Damage damage = damagesStorage.getDamageWithId(damageId);
+                if (damage == null) {
+                    continue;
+                }
                 ImageView imageView = new ImageView(context);
                 if (damage != null && damage.imageSource != null && damage.imageSource.length() != 0) {
                     Drawable drawablePhoto = Drawable.createFromPath(damage.imageSource);

@@ -3,7 +3,7 @@
     <root-path path="." name="root"/>
     <files-path path="." name="files" />
     <path>
-        <external-files-path path="Pictures" name="files" />
+        <external-files-path path="Pictures/" name="files" />
     </path>
 
 </paths>

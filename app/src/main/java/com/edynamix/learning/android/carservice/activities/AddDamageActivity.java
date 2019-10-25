@@ -2,6 +2,7 @@ package com.edynamix.learning.android.carservice.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.edynamix.learning.android.carservice.R;
+import com.edynamix.learning.android.carservice.dialogs.ErrorDialog;
 import com.edynamix.learning.android.carservice.models.Car;
 import com.edynamix.learning.android.carservice.models.Damage;
 import com.edynamix.learning.android.carservice.storages.CarsStorage;
@@ -26,9 +28,9 @@ import java.io.File;
 
 public class AddDamageActivity extends Activity {
 
-    private String imageSource;
     private int carId;
     private Car car;
+    private CarsStorage carsStorage;
 
     private RelativeLayout relativeLayoutAddDamageContainer;
 
@@ -36,12 +38,17 @@ public class AddDamageActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_damage);
 
         carId = getIntent().getExtras().getInt(Constants.EXTRA_CAR_ID);
-        final CarsStorage carsStorage = new CarsStorage(AddDamageActivity.this);
+        carsStorage = new CarsStorage(AddDamageActivity.this);
         car = carsStorage.getCarWithId(carId);
+        // If the car does not exists, show an error dialog. Nothing more to do.
+        if (car == null) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddDamageActivity.this);
+            new ErrorDialog().createDialog(alertDialogBuilder, getResources().getString(R.string.add_damage_invalid_car));
+            return;
+        }
 
         // Toolbar back button
         Button buttonToolbarBack = (Button) findViewById(R.id.buttonToolbarBack);
@@ -79,8 +86,8 @@ public class AddDamageActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // Get the clicked positions.
-                    final float xPos = event.getX();
-                    final float yPos = event.getY();
+                    float xPos = event.getX();
+                    float yPos = event.getY();
 
                     // Go to the add details activity.
                     Intent navigateToDamageDetailsActivity =
@@ -114,13 +121,14 @@ public class AddDamageActivity extends Activity {
                 DamagesStorage damagesStorage = new DamagesStorage(AddDamageActivity.this);
                 for (Integer damageId : car.damageIdsList) {
                     Damage damage = damagesStorage.getDamageWithId(damageId);
-                    String photoSrc = damage.imageSource;
-                    File fileToDelete = new File(photoSrc);
-                    if (fileToDelete.exists()) {
-                        fileToDelete.delete();
+                    if (damage != null) {
+                        File fileToDelete = new File(damage.imageSource);
+                        if (fileToDelete.exists()) {
+                            fileToDelete.delete();
+                        }
+                        removeImageViewForDamage(damage.id);
+                        damagesStorage.deleteDamageWithId(damageId);
                     }
-                    removeImageViewForDamage(damage.id);
-                    damagesStorage.deleteDamageWithId(damageId);
                 }
                 car.damageIdsList.clear();
                 carsStorage.updateCar(car.id, car);
@@ -129,15 +137,20 @@ public class AddDamageActivity extends Activity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         DamagesStorage damagesStorage = new DamagesStorage(AddDamageActivity.this);
+        carsStorage = new CarsStorage(AddDamageActivity.this);
+        // Update car.
+        car = carsStorage.getCarWithId(carId);
         // Place existing damages over the car template.
         for (Integer damageId : car.damageIdsList) {
             Damage damage = damagesStorage.getDamageWithId(damageId);
-            ImageView imageViewRedXForDamage = createXMarkForDamageLocation(damage);
-            // Add the image on the screen.
-            relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
+            if (damage != null) {
+                ImageView imageViewRedXForDamage = createXMarkForDamageLocation(damage);
+                // Add the image on the screen.
+                relativeLayoutAddDamageContainer.addView(imageViewRedXForDamage);
+            }
         }
     }
 

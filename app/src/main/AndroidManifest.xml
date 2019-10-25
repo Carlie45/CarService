@@ -9,7 +9,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
     <application
         android:name=".App"
@@ -20,25 +20,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.AddDamageDetailsActivity"></activity>
-        <activity android:name=".activities.AddDamageActivity" />
-        <activity android:name=".activities.ListDamagesActivity" />
+        <activity
+            android:name=".activities.AddDamageDetailsActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activities.AddDamageActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activities.ListDamagesActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activities.AddCarOwnerActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
         <activity
             android:name=".activities.AddCarActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
         <activity
             android:name=".activities.ListCarsActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
         <activity
             android:name=".activities.LoginActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
         <activity
             android:name=".activities.RegisterActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

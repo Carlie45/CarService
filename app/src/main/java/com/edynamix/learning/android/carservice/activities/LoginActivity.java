@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +25,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_login);
 
         final EditText editTextLoginEmail = (EditText) findViewById(R.id.editTextLoginEmail);
@@ -38,12 +36,19 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 try {
-                    Editable emailTextFromInput = editTextLoginEmail.getText();
-                    Editable passwordTextFromInput = editTextLoginPassword.getText();
+                    String emailTextFromInput = null;
+                    if (editTextLoginEmail.getText() != null) {
+                        emailTextFromInput = editTextLoginEmail.getText().toString();
+                    }
+
+                    String passwordTextFromInput = null;
+                    if (editTextLoginPassword.getText() != null) {
+                        passwordTextFromInput = editTextLoginPassword.getText().toString();
+                    }
 
                     checkCredentials(emailTextFromInput, passwordTextFromInput);
 
-                    saveLoggedInUserToSharedPreferences(emailTextFromInput.toString());
+                    saveLoggedInUserToSharedPreferences(emailTextFromInput);
 
                     Intent navigateToListCarsActivity = new Intent(LoginActivity.this, ListCarsActivity.class);
                     startActivity(navigateToListCarsActivity);
@@ -67,8 +72,8 @@ public class LoginActivity extends Activity {
     }
 
     private void checkCredentials(
-            Editable emailTextFromInput,
-            Editable passwordTextFromInput)
+            String emailTextFromInput,
+            String passwordTextFromInput)
             throws LoginFailedException {
 
         if (emailTextFromInput == null || emailTextFromInput.equals(Constants.EMPTY_VALUE)) {
@@ -79,11 +84,8 @@ public class LoginActivity extends Activity {
             throw new IllegalCredentialsException(getResources().getString(R.string.register_please_enter_password));
         }
 
-        String email = emailTextFromInput.toString();
-        String password = passwordTextFromInput.toString();
-
         LoginDataValidator validator = new LoginDataValidator(LoginActivity.this);
-        validator.validateCredentials(email, password);
+        validator.validateCredentials(emailTextFromInput, passwordTextFromInput);
     }
 
     private void saveLoggedInUserToSharedPreferences(String email) {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +26,6 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_register);
 
         final EditText editTextRegisterEmail = (EditText) findViewById(R.id.editTextRegisterEmail);
@@ -40,16 +38,24 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
                 try {
-                    Editable emailTextFromInput = editTextRegisterEmail.getText();
-                    Editable passwordTextFromInput = editTextRegisterPassword.getText();
-                    Editable confirmPasswordTextFromInput = editTextRegisterConfirmPassword.getText();
+                    String emailTextFromInput = null;
+                    if (editTextRegisterEmail.getText() != null) {
+                        emailTextFromInput = editTextRegisterEmail.getText().toString();
+                    }
+
+                    String passwordTextFromInput = null;
+                    if (editTextRegisterPassword.getText() != null) {
+                        passwordTextFromInput = editTextRegisterPassword.getText().toString();
+                    }
+
+                    String confirmPasswordTextFromInput = null;
+                    if (editTextRegisterConfirmPassword.getText() != null) {
+                        confirmPasswordTextFromInput = editTextRegisterConfirmPassword.getText().toString();
+                    }
 
                     checkCredentials(emailTextFromInput, passwordTextFromInput, confirmPasswordTextFromInput);
-                    // We have already verified the entered credentials, so we can use them as strings.
-                    String email = emailTextFromInput.toString();
-                    String password = passwordTextFromInput.toString();
 
-                    registerUser(email, password);
+                    registerUser(emailTextFromInput, passwordTextFromInput);
 
                     Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_user_created), Toast.LENGTH_LONG).show();
 
@@ -63,9 +69,9 @@ public class RegisterActivity extends Activity {
     }
 
     private void checkCredentials(
-            Editable emailTextFromInput,
-            Editable passwordTextFromInput,
-            Editable confirmPasswordTextFromInput)
+            String emailTextFromInput,
+            String passwordTextFromInput,
+            String confirmPasswordTextFromInput)
             throws IllegalCredentialsException, RegistrationFailedException{
 
         if (emailTextFromInput == null || emailTextFromInput.equals(Constants.EMPTY_VALUE)) {
@@ -73,18 +79,18 @@ public class RegisterActivity extends Activity {
         }
 
         RegisterDataValidator validator = new RegisterDataValidator(RegisterActivity.this);
-        validator.validateEmail(emailTextFromInput.toString());
+        validator.validateEmail(emailTextFromInput);
 
         if (passwordTextFromInput == null || passwordTextFromInput.equals(Constants.EMPTY_VALUE)) {
             throw new IllegalCredentialsException(getResources().getString(R.string.register_please_enter_password));
         }
-        validator.validatePassword(passwordTextFromInput.toString());
+        validator.validatePassword(passwordTextFromInput);
 
         if (confirmPasswordTextFromInput == null || confirmPasswordTextFromInput.equals(Constants.EMPTY_VALUE)) {
             throw new IllegalCredentialsException(getResources().getString(R.string.register_please_confirm_password));
         }
 
-       validator.validatePasswordAndConfirmPasswordMatch(passwordTextFromInput.toString(), confirmPasswordTextFromInput.toString());
+       validator.validatePasswordAndConfirmPasswordMatch(passwordTextFromInput, confirmPasswordTextFromInput);
     }
 
     private void registerUser(String email, String password) throws RegistrationFailedException {
